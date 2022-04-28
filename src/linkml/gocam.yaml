@@ -29,10 +29,14 @@ prefixes:
   OBAN: http://purl.org/oban/
   goshapes: http://purl.obolibrary.org/obo/go/shapes/
   RO: http://purl.obolibrary.org/obo/RO_
+  NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
   BFO: http://purl.obolibrary.org/obo/BFO_
   GO: http://purl.obolibrary.org/obo/GO_
   ECO: http://purl.obolibrary.org/obo/ECO_
   gomodel: http://model.geneontology.org/
+  oio: http://www.geneontology.org/formats/oboInOwl#
+  orcid: https://orcid.org/
+  UniProtKB: http://identifiers.org/uniprot/
 
 default_prefix: gocam
 default_range: string
@@ -68,6 +72,9 @@ slots:
     comments:
       - for individuals / test_gocam entities, these will typically be CURIEs of the form model:xxxx
       - for OntologyClasses, these will be standard OBO CURIEs
+
+  legacy_id:
+    slot_uri: oio:id
     
   name:
     aliases: [ 'label', 'display name', 'title' ]
@@ -120,17 +127,21 @@ slots:
     description: >-
       connects an assertion to a group that provided it
     slot_uri: pav:providedBy
+    #range: uriorcurie
+    range: string
     
   contributor:
     slot_uri: dce:contributor
     description: >-
       connects an assertion to the individual that made a contribution to it
     multivalued: true
+    range: uriorcurie
     
   date:
     slot_uri: dce:date
     description: >-
       connects anything to the date
+    range: DateAsString
     
   evidence_type:
     is_a: type
@@ -303,7 +314,7 @@ slots:
   title:
     is_a: model_property
     slot_uri: dce:title
-    range: string
+    range: ShortText
 
   version:
     is_a: model_property
@@ -412,6 +423,7 @@ classes:
       A collection of GO-CAM entities and associated metadata. A model combines multiple simple GO annotations into an integrated, semantically precise and computable model of biological function.
     slots:
       - id
+      - legacy_id
       - title
       - contributor
       - date
@@ -816,6 +828,16 @@ classes:
     mixin: true
 
 types:
+
+  ShortText:
+    typeof: string
+    base: str
+    pattern: "^\\S+.*\\S$"
+
+  DateAsString:
+    typeof: string
+    base: str
+    pattern: "^\\d{4}-\\d{2}-\\d{2}$"
 
   chemical formula value:
     uri: xsd:string

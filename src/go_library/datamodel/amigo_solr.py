@@ -1,5 +1,5 @@
 # Auto generated from amigo_solr.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-27T19:16:47
+# Generation date: 2022-04-27T19:44:57
 # Schema: amigo_solr
 #
 # id: https://geneontology.org/test_amigo/schema
@@ -112,6 +112,7 @@ class Annotation(YAMLRoot):
     taxon_closure: Optional[Union[str, List[str]]] = empty_list()
     taxon_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     taxon_closure_map: Optional[Union[str, List[str]]] = empty_list()
+    taxon_subset_closure_map: Optional[Union[str, List[str]]] = empty_list()
     taxon_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     taxon_subset_closure: Optional[Union[str, List[str]]] = empty_list()
     taxon_subset_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
@@ -125,9 +126,11 @@ class Annotation(YAMLRoot):
     isa_partof_closure: Optional[Union[str, List[str]]] = empty_list()
     isa_partof_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     isa_partof_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
+    isa_partof_closure_map: Optional[Union[str, List[str]]] = empty_list()
     regulates_closure: Optional[Union[str, List[str]]] = empty_list()
     regulates_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     regulates_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
+    regulates_closure_map: Optional[Union[str, List[str]]] = empty_list()
     has_participant_closure: Optional[Union[str, List[str]]] = empty_list()
     has_participant_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     has_participant_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
@@ -147,6 +150,7 @@ class Annotation(YAMLRoot):
     bioentity_isoform: Optional[str] = None
     evidence_type: Optional[str] = None
     evidence_type_closure: Optional[Union[str, List[str]]] = empty_list()
+    evidence_closure_map: Optional[Union[str, List[str]]] = empty_list()
     evidence_with: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     evidence_with_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     evidence: Optional[str] = None
@@ -155,6 +159,7 @@ class Annotation(YAMLRoot):
     evidence_closure: Optional[Union[str, List[str]]] = empty_list()
     evidence_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     evidence_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
+    evidence_subset_closure_map: Optional[Union[str, List[str]]] = empty_list()
     evidence_subset_closure: Optional[Union[str, List[str]]] = empty_list()
     evidence_subset_closure_label: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
     evidence_subset_closure_label_searchable: Optional[Union[Union[str, SearchableString], List[Union[str, SearchableString]]]] = empty_list()
@@ -220,6 +225,10 @@ class Annotation(YAMLRoot):
             self.taxon_closure_map = [self.taxon_closure_map] if self.taxon_closure_map is not None else []
         self.taxon_closure_map = [v if isinstance(v, str) else str(v) for v in self.taxon_closure_map]
 
+        if not isinstance(self.taxon_subset_closure_map, list):
+            self.taxon_subset_closure_map = [self.taxon_subset_closure_map] if self.taxon_subset_closure_map is not None else []
+        self.taxon_subset_closure_map = [v if isinstance(v, str) else str(v) for v in self.taxon_subset_closure_map]
+
         if not isinstance(self.taxon_closure_label_searchable, list):
             self.taxon_closure_label_searchable = [self.taxon_closure_label_searchable] if self.taxon_closure_label_searchable is not None else []
         self.taxon_closure_label_searchable = [v if isinstance(v, SearchableString) else SearchableString(v) for v in self.taxon_closure_label_searchable]
@@ -269,6 +278,10 @@ class Annotation(YAMLRoot):
             self.isa_partof_closure_label_searchable = [self.isa_partof_closure_label_searchable] if self.isa_partof_closure_label_searchable is not None else []
         self.isa_partof_closure_label_searchable = [v if isinstance(v, SearchableString) else SearchableString(v) for v in self.isa_partof_closure_label_searchable]
 
+        if not isinstance(self.isa_partof_closure_map, list):
+            self.isa_partof_closure_map = [self.isa_partof_closure_map] if self.isa_partof_closure_map is not None else []
+        self.isa_partof_closure_map = [v if isinstance(v, str) else str(v) for v in self.isa_partof_closure_map]
+
         if not isinstance(self.regulates_closure, list):
             self.regulates_closure = [self.regulates_closure] if self.regulates_closure is not None else []
         self.regulates_closure = [v if isinstance(v, str) else str(v) for v in self.regulates_closure]
@@ -280,6 +293,10 @@ class Annotation(YAMLRoot):
         if not isinstance(self.regulates_closure_label_searchable, list):
             self.regulates_closure_label_searchable = [self.regulates_closure_label_searchable] if self.regulates_closure_label_searchable is not None else []
         self.regulates_closure_label_searchable = [v if isinstance(v, SearchableString) else SearchableString(v) for v in self.regulates_closure_label_searchable]
+
+        if not isinstance(self.regulates_closure_map, list):
+            self.regulates_closure_map = [self.regulates_closure_map] if self.regulates_closure_map is not None else []
+        self.regulates_closure_map = [v if isinstance(v, str) else str(v) for v in self.regulates_closure_map]
 
         if not isinstance(self.has_participant_closure, list):
             self.has_participant_closure = [self.has_participant_closure] if self.has_participant_closure is not None else []
@@ -345,6 +362,10 @@ class Annotation(YAMLRoot):
             self.evidence_type_closure = [self.evidence_type_closure] if self.evidence_type_closure is not None else []
         self.evidence_type_closure = [v if isinstance(v, str) else str(v) for v in self.evidence_type_closure]
 
+        if not isinstance(self.evidence_closure_map, list):
+            self.evidence_closure_map = [self.evidence_closure_map] if self.evidence_closure_map is not None else []
+        self.evidence_closure_map = [v if isinstance(v, str) else str(v) for v in self.evidence_closure_map]
+
         if not isinstance(self.evidence_with, list):
             self.evidence_with = [self.evidence_with] if self.evidence_with is not None else []
         self.evidence_with = [v if isinstance(v, SearchableString) else SearchableString(v) for v in self.evidence_with]
@@ -373,6 +394,10 @@ class Annotation(YAMLRoot):
         if not isinstance(self.evidence_closure_label_searchable, list):
             self.evidence_closure_label_searchable = [self.evidence_closure_label_searchable] if self.evidence_closure_label_searchable is not None else []
         self.evidence_closure_label_searchable = [v if isinstance(v, SearchableString) else SearchableString(v) for v in self.evidence_closure_label_searchable]
+
+        if not isinstance(self.evidence_subset_closure_map, list):
+            self.evidence_subset_closure_map = [self.evidence_subset_closure_map] if self.evidence_subset_closure_map is not None else []
+        self.evidence_subset_closure_map = [v if isinstance(v, str) else str(v) for v in self.evidence_subset_closure_map]
 
         if not isinstance(self.evidence_subset_closure, list):
             self.evidence_subset_closure = [self.evidence_subset_closure] if self.evidence_subset_closure is not None else []
@@ -1967,6 +1992,12 @@ slots.bioentity_isoform = Slot(uri=AMIGO.bioentity_isoform, name="bioentity_isof
 
 slots.evidence_type = Slot(uri=AMIGO.evidence_type, name="evidence_type", curie=AMIGO.curie('evidence_type'),
                    model_uri=AMIGO.evidence_type, domain=None, range=Optional[str])
+
+slots.evidence_closure_map = Slot(uri=AMIGO.evidence_closure_map, name="evidence_closure_map", curie=AMIGO.curie('evidence_closure_map'),
+                   model_uri=AMIGO.evidence_closure_map, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.evidence_subset_closure_map = Slot(uri=AMIGO.evidence_subset_closure_map, name="evidence_subset_closure_map", curie=AMIGO.curie('evidence_subset_closure_map'),
+                   model_uri=AMIGO.evidence_subset_closure_map, domain=None, range=Optional[Union[str, List[str]]])
 
 slots.evidence_type_closure = Slot(uri=AMIGO.evidence_type_closure, name="evidence_type_closure", curie=AMIGO.curie('evidence_type_closure'),
                    model_uri=AMIGO.evidence_type_closure, domain=None, range=Optional[Union[str, List[str]]])

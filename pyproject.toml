@@ -18,6 +18,10 @@ sparqlfun = "^0.1.2"
 linkml = "^1.2.6"
 mkdocs-material = "^8.2.8"
 
+[tool.poetry.scripts]
+gocam = "go_library.gocam_cli:main"
+amigo = "go_library.amigo_solr.amigo_cli:main"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

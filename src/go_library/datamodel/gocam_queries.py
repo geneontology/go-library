@@ -1,5 +1,5 @@
 # Auto generated from gocam_queries.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-26T20:36:12
+# Generation date: 2022-04-28T09:11:03
 # Schema: gocam-queries
 #
 # id: https://linkml.io/sparqlfun/gocam_queries
@@ -47,6 +47,7 @@ GOMODEL = CurieNamespace('gomodel', 'http://model.geneontology.org/')
 GOSHAPES = CurieNamespace('goshapes', 'http://purl.obolibrary.org/obo/go/shapes/')
 LEGO = CurieNamespace('lego', 'http://geneontology.org/lego/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+OIO = CurieNamespace('oio', 'http://www.geneontology.org/formats/oboInOwl#')
 OWL = CurieNamespace('owl', 'http://www.w3.org/2002/07/owl#')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
 RDF = CurieNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
@@ -57,6 +58,20 @@ DEFAULT_ = GOCAM_QUERIES
 
 
 # Types
+class ShortText(String):
+    type_class_uri = XSD.string
+    type_class_curie = "xsd:string"
+    type_name = "ShortText"
+    type_model_uri = GOCAM_QUERIES.ShortText
+
+
+class DateAsString(String):
+    type_class_uri = XSD.string
+    type_class_curie = "xsd:string"
+    type_name = "DateAsString"
+    type_model_uri = GOCAM_QUERIES.DateAsString
+
+
 class ChemicalFormulaValue(str):
     """ A chemical formula """
     type_class_uri = XSD.string
@@ -125,10 +140,6 @@ class ModelElementsInferredTypesId(URIorCURIE):
     pass
 
 
-class ModelInteractionsId(URIorCURIE):
-    pass
-
-
 class ModelStatisticsId(URIorCURIE):
     pass
 
@@ -138,6 +149,10 @@ class ModelCausalStatisticsId(URIorCURIE):
 
 
 class CausalModelId(URIorCURIE):
+    pass
+
+
+class ModelQueryId(URIorCURIE):
     pass
 
 
@@ -226,7 +241,7 @@ class ModelInfo(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelInfo
 
     id: Union[str, ModelInfoId] = None
-    title: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
     state: Optional[str] = None
     provided_by: Optional[str] = None
 
@@ -236,8 +251,8 @@ class ModelInfo(YAMLRoot):
         if not isinstance(self.id, ModelInfoId):
             self.id = ModelInfoId(self.id)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
@@ -262,7 +277,7 @@ class ModelElements(YAMLRoot):
 
     id: Union[str, ModelElementsId] = None
     object: Union[str, EntityId] = None
-    title: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
     subject: Optional[Union[str, DomainEntityId]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
@@ -276,8 +291,8 @@ class ModelElements(YAMLRoot):
         if not isinstance(self.object, EntityId):
             self.object = EntityId(self.object)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if self.subject is not None and not isinstance(self.subject, DomainEntityId):
             self.subject = DomainEntityId(self.subject)
@@ -297,7 +312,7 @@ class ModelElementsInferredTypes(YAMLRoot):
     id: Union[str, ModelElementsInferredTypesId] = None
     object: Union[str, EntityId] = None
     type: Union[str, OntologyClassId] = None
-    title: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
     subject: Optional[Union[str, DomainEntityId]] = None
     graph: Optional[str] = None
 
@@ -317,8 +332,8 @@ class ModelElementsInferredTypes(YAMLRoot):
         if not isinstance(self.type, OntologyClassId):
             self.type = OntologyClassId(self.type)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if self.subject is not None and not isinstance(self.subject, DomainEntityId):
             self.subject = DomainEntityId(self.subject)
@@ -330,36 +345,34 @@ class ModelElementsInferredTypes(YAMLRoot):
 
 
 @dataclass
-class ModelInteractions(YAMLRoot):
+class ModelInteraction(YAMLRoot):
     """
     model plus all interacting enablers
     """
     _inherited_slots: ClassVar[List[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelInteractions
-    class_class_curie: ClassVar[str] = "gocam_queries:ModelInteractions"
-    class_name: ClassVar[str] = "model interactions"
-    class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelInteractions
+    class_class_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelInteraction
+    class_class_curie: ClassVar[str] = "gocam_queries:ModelInteraction"
+    class_name: ClassVar[str] = "model interaction"
+    class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelInteraction
 
-    id: Union[str, ModelInteractionsId] = None
     object: Union[str, EntityId] = None
-    title: Optional[str] = None
+    model_id: Optional[Union[str, URIorCURIE]] = None
+    title: Optional[Union[str, ShortText]] = None
     subject: Optional[Union[str, DomainEntityId]] = None
     predicate: Optional[Union[str, PredicateType]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, ModelInteractionsId):
-            self.id = ModelInteractionsId(self.id)
-
         if self._is_empty(self.object):
             self.MissingRequiredField("object")
         if not isinstance(self.object, EntityId):
             self.object = EntityId(self.object)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.model_id is not None and not isinstance(self.model_id, URIorCURIE):
+            self.model_id = URIorCURIE(self.model_id)
+
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if self.subject is not None and not isinstance(self.subject, DomainEntityId):
             self.subject = DomainEntityId(self.subject)
@@ -450,13 +463,25 @@ class ModelQuery(YAMLRoot):
     class_name: ClassVar[str] = "model query"
     class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelQuery
 
+    id: Union[str, ModelQueryId] = None
     results: Optional[Union[Union[str, ModelId], List[Union[str, ModelId]]]] = empty_list()
     state: Optional[str] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
-    title: Optional[str] = None
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    title: Optional[Union[str, ShortText]] = None
+    search_term: Optional[str] = None
+    ontology_class: Optional[Union[str, URIorCURIE]] = None
     provided_by: Optional[str] = None
+    min_date: Optional[Union[str, DateAsString]] = None
+    max_date: Optional[Union[str, DateAsString]] = None
+    in_taxon: Optional[Union[str, URIorCURIE]] = None
+    predicate: Optional[Union[str, PredicateType]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self._is_empty(self.id):
+            self.MissingRequiredField("id")
+        if not isinstance(self.id, ModelQueryId):
+            self.id = ModelQueryId(self.id)
+
         if not isinstance(self.results, list):
             self.results = [self.results] if self.results is not None else []
         self.results = [v if isinstance(v, ModelId) else ModelId(v) for v in self.results]
@@ -466,13 +491,31 @@ class ModelQuery(YAMLRoot):
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
+
+        if self.search_term is not None and not isinstance(self.search_term, str):
+            self.search_term = str(self.search_term)
+
+        if self.ontology_class is not None and not isinstance(self.ontology_class, URIorCURIE):
+            self.ontology_class = URIorCURIE(self.ontology_class)
 
         if self.provided_by is not None and not isinstance(self.provided_by, str):
             self.provided_by = str(self.provided_by)
+
+        if self.min_date is not None and not isinstance(self.min_date, DateAsString):
+            self.min_date = DateAsString(self.min_date)
+
+        if self.max_date is not None and not isinstance(self.max_date, DateAsString):
+            self.max_date = DateAsString(self.max_date)
+
+        if self.in_taxon is not None and not isinstance(self.in_taxon, URIorCURIE):
+            self.in_taxon = URIorCURIE(self.in_taxon)
+
+        if self.predicate is not None and not isinstance(self.predicate, PredicateType):
+            self.predicate = PredicateType(self.predicate)
 
         super().__post_init__(**kwargs)
 
@@ -487,9 +530,9 @@ class ModelIdQuery(YAMLRoot):
     class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.ModelIdQuery
 
     id: Union[str, ModelIdQueryId] = None
-    title: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
     state: Optional[str] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     title_regex: Optional[str] = None
     provided_by: Optional[str] = None
 
@@ -499,15 +542,15 @@ class ModelIdQuery(YAMLRoot):
         if not isinstance(self.id, ModelIdQueryId):
             self.id = ModelIdQueryId(self.id)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
         if self.title_regex is not None and not isinstance(self.title_regex, str):
             self.title_regex = str(self.title_regex)
@@ -607,9 +650,10 @@ class Model(Entity):
     class_model_uri: ClassVar[URIRef] = GOCAM_QUERIES.Model
 
     id: Union[str, ModelId] = None
-    title: Optional[str] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
-    date: Optional[str] = None
+    legacy_id: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date: Optional[Union[str, DateAsString]] = None
     state: Optional[str] = None
     version: Optional[Union[str, URIorCURIE]] = None
     comment: Optional[Union[str, List[str]]] = empty_list()
@@ -628,15 +672,18 @@ class Model(Entity):
         if not isinstance(self.id, ModelId):
             self.id = ModelId(self.id)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.legacy_id is not None and not isinstance(self.legacy_id, str):
+            self.legacy_id = str(self.legacy_id)
+
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
-        if self.date is not None and not isinstance(self.date, str):
-            self.date = str(self.date)
+        if self.date is not None and not isinstance(self.date, DateAsString):
+            self.date = DateAsString(self.date)
 
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
@@ -1385,8 +1432,8 @@ class Evidence(InformationEntity):
 
     id: Union[str, EvidenceId] = None
     evidence_type: Union[str, OntologyClassId] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
-    date: Optional[str] = None
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date: Optional[Union[str, DateAsString]] = None
     reference: Optional[Union[Union[str, PublicationId], List[Union[str, PublicationId]]]] = empty_list()
     with_object: Optional[Union[Union[str, EntityId], List[Union[str, EntityId]]]] = empty_list()
 
@@ -1403,10 +1450,10 @@ class Evidence(InformationEntity):
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
-        if self.date is not None and not isinstance(self.date, str):
-            self.date = str(self.date)
+        if self.date is not None and not isinstance(self.date, DateAsString):
+            self.date = DateAsString(self.date)
 
         if not isinstance(self.reference, list):
             self.reference = [self.reference] if self.reference is not None else []
@@ -1555,6 +1602,9 @@ class CausalPredicateEnum(EnumDefinitionImpl):
 class slots:
     pass
 
+slots.model_id = Slot(uri=GOCAM_QUERIES.model_id, name="model_id", curie=GOCAM_QUERIES.curie('model_id'),
+                   model_uri=GOCAM_QUERIES.model_id, domain=None, range=Optional[Union[str, URIorCURIE]])
+
 slots.aggregate_count = Slot(uri=GOCAM_QUERIES.aggregate_count, name="aggregate_count", curie=GOCAM_QUERIES.curie('aggregate_count'),
                    model_uri=GOCAM_QUERIES.aggregate_count, domain=None, range=Optional[int])
 
@@ -1573,8 +1623,20 @@ slots.title_regex = Slot(uri=GOCAM_QUERIES.title_regex, name="title_regex", curi
 slots.title_query = Slot(uri=GOCAM_QUERIES.title_query, name="title_query", curie=GOCAM_QUERIES.curie('title_query'),
                    model_uri=GOCAM_QUERIES.title_query, domain=None, range=Optional[str])
 
+slots.search_term = Slot(uri=GOCAM_QUERIES.search_term, name="search_term", curie=GOCAM_QUERIES.curie('search_term'),
+                   model_uri=GOCAM_QUERIES.search_term, domain=None, range=Optional[str])
+
 slots.graph = Slot(uri=GOCAM_QUERIES.graph, name="graph", curie=GOCAM_QUERIES.curie('graph'),
                    model_uri=GOCAM_QUERIES.graph, domain=None, range=Optional[str])
+
+slots.min_date = Slot(uri=GOCAM_QUERIES.min_date, name="min_date", curie=GOCAM_QUERIES.curie('min_date'),
+                   model_uri=GOCAM_QUERIES.min_date, domain=None, range=Optional[Union[str, DateAsString]])
+
+slots.max_date = Slot(uri=GOCAM_QUERIES.max_date, name="max_date", curie=GOCAM_QUERIES.curie('max_date'),
+                   model_uri=GOCAM_QUERIES.max_date, domain=None, range=Optional[Union[str, DateAsString]])
+
+slots.ontology_class = Slot(uri=GOCAM_QUERIES.ontology_class, name="ontology_class", curie=GOCAM_QUERIES.curie('ontology_class'),
+                   model_uri=GOCAM_QUERIES.ontology_class, domain=None, range=Optional[Union[str, URIorCURIE]])
 
 slots.results = Slot(uri=RESULTSET.results, name="results", curie=RESULTSET.curie('results'),
                    model_uri=GOCAM_QUERIES.results, domain=None, range=Optional[Union[Union[dict, GenericResult], List[Union[dict, GenericResult]]]])
@@ -1593,6 +1655,9 @@ slots.bindings = Slot(uri=RESULTSET.bindings, name="bindings", curie=RESULTSET.c
 
 slots.id = Slot(uri=GOCAM.id, name="id", curie=GOCAM.curie('id'),
                    model_uri=GOCAM_QUERIES.id, domain=None, range=URIRef)
+
+slots.legacy_id = Slot(uri=OIO.id, name="legacy_id", curie=OIO.curie('id'),
+                   model_uri=GOCAM_QUERIES.legacy_id, domain=None, range=Optional[str])
 
 slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
                    model_uri=GOCAM_QUERIES.name, domain=None, range=Optional[Union[str, LabelType]])
@@ -1613,10 +1678,10 @@ slots.provided_by = Slot(uri=PAV.providedBy, name="provided_by", curie=PAV.curie
                    model_uri=GOCAM_QUERIES.provided_by, domain=None, range=Optional[str])
 
 slots.contributor = Slot(uri=DCE.contributor, name="contributor", curie=DCE.curie('contributor'),
-                   model_uri=GOCAM_QUERIES.contributor, domain=None, range=Optional[Union[str, List[str]]])
+                   model_uri=GOCAM_QUERIES.contributor, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
 
 slots.date = Slot(uri=DCE.date, name="date", curie=DCE.curie('date'),
-                   model_uri=GOCAM_QUERIES.date, domain=None, range=Optional[str])
+                   model_uri=GOCAM_QUERIES.date, domain=None, range=Optional[Union[str, DateAsString]])
 
 slots.evidence_type = Slot(uri=GOCAM.evidence_type, name="evidence_type", curie=GOCAM.curie('evidence_type'),
                    model_uri=GOCAM_QUERIES.evidence_type, domain=None, range=Union[str, OntologyClassId],
@@ -1674,7 +1739,7 @@ slots.model_property = Slot(uri=GOCAM.model_property, name="model_property", cur
                    model_uri=GOCAM_QUERIES.model_property, domain=None, range=Optional[str])
 
 slots.title = Slot(uri=DCE.title, name="title", curie=DCE.curie('title'),
-                   model_uri=GOCAM_QUERIES.title, domain=None, range=Optional[str])
+                   model_uri=GOCAM_QUERIES.title, domain=None, range=Optional[Union[str, ShortText]])
 
 slots.version = Slot(uri=OWL.versionIRI, name="version", curie=OWL.curie('versionIRI'),
                    model_uri=GOCAM_QUERIES.version, domain=None, range=Optional[Union[str, URIorCURIE]])

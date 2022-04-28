@@ -6,7 +6,7 @@ description: |-
 default_curi_maps:
   - semweb_context
 imports:
-  - test_gocam
+  - gocam
   - amigo_solr
 prefixes:
   linkml: https://w3id.org/linkml/

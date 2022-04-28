@@ -5,8 +5,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Dict
 
+from go_library.datamodel.gocam_queries import ModelInteraction, ModelQuery
 from linkml_dataops.query.queryengine import QueryEngine
 from linkml_runtime import CurieNamespace, SchemaView
+from linkml_runtime.dumpers import yaml_dumper
 from oaklib.datamodels.vocabulary import DEFAULT_PREFIX_MAP
 from oaklib.implementations.sparql.sparql_implementation import _sparql_values
 from oaklib.implementations.sparql.sparql_query import SparqlQuery
@@ -118,6 +120,20 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
         pass
         #query = SparqlQuery(select=['?s ?p ?o'],
         #                    where=where)
+
+    def query_model_ids(self, **kwargs) -> Iterator[CURIE]:
+        kwargs = {k: v for k, v in kwargs.items() if v is not None}
+        for result in self.sparqlfun_engine.query(ModelQuery, predicate='lego:modelstate', **kwargs).results:
+            print(yaml_dumper.dumps(result))
+            yield result.id
+
+    def all_model_interactions(self, model_id=None, **kwargs) -> Iterator[ModelInteraction]:
+        for model_id in self.query_model_ids(id=model_id, **kwargs):
+            print(f'MODEL={model_id}')
+            for result in self.sparqlfun_engine.query(ModelInteraction, model_id=model_id).results:
+                yield result
+
+
 
 
 

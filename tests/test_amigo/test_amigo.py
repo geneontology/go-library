@@ -13,7 +13,7 @@ class QueryTestCase(unittest.TestCase):
         self.api = api = create_handle()
 
 
-    def test_api(self):
+    def test_ontology_class(self):
         api = self.api
         c = api.fetch_OntologyClass(NUCLEAR_MEMBRANE)
         #print(c)
@@ -22,6 +22,20 @@ class QueryTestCase(unittest.TestCase):
         results = list(api.query_OntologyClass(isa_partof_closure=[NUCLEAR_MEMBRANE, PROTEIN_COMPLEX]))
         for r in results:
             print(f'{r.id} {r.annotation_class_label}')
+        assert len(results) > 1
+
+    def test_bioentity(self):
+        api = self.api
+        results = list(api.query_Bioentity(isa_partof_closure=[NUCLEAR_MEMBRANE, PROTEIN_COMPLEX]))
+        for r in results:
+            print(f'{r.bioentity} {r.bioentity_label}')
+        assert len(results) > 1
+
+    def test_annotation(self):
+        api = self.api
+        results = list(api.query_Annotation(isa_partof_closure=[NUCLEAR_MEMBRANE, PROTEIN_COMPLEX]))
+        for r in results:
+            print(f'{r.bioentity} {r.bioentity_label} ==> {r.annotation_class} {r.annotation_class_label}')
         assert len(results) > 1
 
 

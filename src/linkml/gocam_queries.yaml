@@ -88,19 +88,19 @@ classes:
           }
         }
 
-  model interactions:
+  model interaction:
     description: model plus all interacting enablers
     slots:
-      - id
+      - model_id
       - title
       - subject
       - predicate
       - object
     annotations:
       sparql.select: |-
-        SELECT ?id ?title ?subject ?predicate ?object WHERE {
-          ?id dce:title ?title
-          GRAPH ?id {
+        SELECT ?model_id ?title ?subject ?predicate ?object WHERE {
+          ?model_id dce:title ?title
+          GRAPH ?model_id {
             ?subject_inst rdf:type ?subject .
             ?object_inst rdf:type ?object .
             ?subject_activity_inst RO:0002333 ?subject_inst .
@@ -150,11 +150,18 @@ classes:
   model query:
     description: Queries for models based on multiple search criteria
     slots:
+      - id
       - results
       - state
       - contributor
       - title
+      - search_term
+      - ontology_class
       - provided_by
+      - min_date
+      - max_date
+      - in_taxon
+      - predicate
     slot_usage:
       results:
         range: model
@@ -163,27 +170,50 @@ classes:
       sparql.construct:
         CONSTRUCT {
           ?id a gocam:Model ;
-              ?_p ?_v
+              ?predicate ?_v
         }
         WHERE {
-          ?id ?_p ?_v .
+          ?id ?predicate ?_v .
           {% if state %}
-          ?id lego:modelstate "{{ state }}" .
+          ?id lego:modelstate ?state .
           {% else %}
           ?id lego:modelstate ?state_v .
           {% endif %}
+
           {% if contributor %}
-          ?id lego:modelstate "{{ contributor }}" .
+          ?id dce:contributor ?contributor .
           {% endif %}
-          {% if contributor %}
-          ?id dce:contributor "{{ contributor }}" .
+
+          {% if in_taxon %}
+          ?id biolink:in_taxon ?in_taxon .
           {% endif %}
+
           {% if provided_by %}
-          ?id pav:providedBy "{{ provided_by }}" .
+          ?id pav:providedBy ?provided_by .
           {% endif %}
+
           {% if title %}
           ?id dce:title ?actual_title .
           ?actual_title bds:search ?title .
+          {% endif %}
+
+          {% if search_term %}
+          ?id (dce:title|rdfs:comment) ?search_term_v .
+          ?search_term_v bds:search ?search_term .
+          {% endif %}
+
+          {% if min_date %}
+          ?id dce:date ?date .
+          FILTER (?date >= ?min_date)
+          {% endif %}
+
+          {% if max_date %}
+          ?id dce:date ?date .
+          FILTER (?date <= ?max_date)
+          {% endif %}
+
+          {% if ontology_class %}
+          GRAPH ?id {?ontology_class_i a ?ontology_class }
           {% endif %}
 
         }
@@ -217,9 +247,12 @@ classes:
         {% if title_regex %}
         FILTER regex( str(?title), "{{title_regex}}", "i" )
         {% endif %}
+
         }
 
 slots:
+  model_id:
+    range: uriorcurie
   aggregate_count:
     range: integer
   model_count:
@@ -230,4 +263,11 @@ slots:
     is_a: aggregate_count
   title_regex:
   title_query:
+  search_term:
   graph:
+  min_date:
+    range: DateAsString
+  max_date:
+    range: DateAsString
+  ontology_class:
+    range: uriorcurie

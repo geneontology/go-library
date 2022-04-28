@@ -26,6 +26,7 @@ classes:
     - taxon_closure
     - taxon_closure_label
     - taxon_closure_map
+    - taxon_subset_closure_map
     - taxon_closure_label_searchable
     - taxon_subset_closure
     - taxon_subset_closure_label
@@ -39,9 +40,11 @@ classes:
     - isa_partof_closure
     - isa_partof_closure_label
     - isa_partof_closure_label_searchable
+    - isa_partof_closure_map
     - regulates_closure
     - regulates_closure_label
     - regulates_closure_label_searchable
+    - regulates_closure_map
     - has_participant_closure
     - has_participant_closure_label
     - has_participant_closure_label_searchable
@@ -61,6 +64,7 @@ classes:
     - bioentity_isoform
     - evidence_type
     - evidence_type_closure
+    - evidence_closure_map
     - evidence_with
     - evidence_with_searchable
     - evidence
@@ -69,6 +73,7 @@ classes:
     - evidence_closure
     - evidence_closure_label
     - evidence_closure_label_searchable
+    - evidence_subset_closure_map
     - evidence_subset_closure
     - evidence_subset_closure_label
     - evidence_subset_closure_label_searchable
@@ -733,6 +738,12 @@ slots:
     - Evidence
     multivalued: false
     comments: []
+  evidence_closure_map:
+    range: string
+    multivalued: true
+  evidence_subset_closure_map:
+    range: string
+    multivalued: true
   evidence_type_closure:
     description: All evidence (evidence closure) for this annotation
     range: string

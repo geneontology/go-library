@@ -1,5 +1,5 @@
 # Auto generated from gocam.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-26T20:35:28
+# Generation date: 2022-04-28T08:28:04
 # Schema: gocam
 #
 # id: https://w3id.org/gocam
@@ -40,6 +40,7 @@ BFO = CurieNamespace('BFO', 'http://purl.obolibrary.org/obo/BFO_')
 DOI = CurieNamespace('DOI', 'http://dx.doi.org/')
 ECO = CurieNamespace('ECO', 'http://purl.obolibrary.org/obo/ECO_')
 GO = CurieNamespace('GO', 'http://purl.obolibrary.org/obo/GO_')
+NCBITAXON = CurieNamespace('NCBITaxon', 'http://purl.obolibrary.org/obo/NCBITaxon_')
 OBAN = CurieNamespace('OBAN', 'http://purl.org/oban/')
 PMID = CurieNamespace('PMID', 'http://www.ncbi.nlm.nih.gov/pubmed/')
 RO = CurieNamespace('RO', 'http://purl.obolibrary.org/obo/RO_')
@@ -50,6 +51,8 @@ GOMODEL = CurieNamespace('gomodel', 'http://model.geneontology.org/')
 GOSHAPES = CurieNamespace('goshapes', 'http://purl.obolibrary.org/obo/go/shapes/')
 LEGO = CurieNamespace('lego', 'http://geneontology.org/lego/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
+OIO = CurieNamespace('oio', 'http://www.geneontology.org/formats/oboInOwl#')
+ORCID = CurieNamespace('orcid', 'https://orcid.org/')
 OWL = CurieNamespace('owl', 'http://www.w3.org/2002/07/owl#')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
 RDF = CurieNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#')
@@ -59,6 +62,20 @@ DEFAULT_ = GOCAM
 
 
 # Types
+class ShortText(String):
+    type_class_uri = XSD.string
+    type_class_curie = "xsd:string"
+    type_name = "ShortText"
+    type_model_uri = GOCAM.ShortText
+
+
+class DateAsString(String):
+    type_class_uri = XSD.string
+    type_class_curie = "xsd:string"
+    type_name = "DateAsString"
+    type_model_uri = GOCAM.DateAsString
+
+
 class ChemicalFormulaValue(str):
     """ A chemical formula """
     type_class_uri = XSD.string
@@ -216,9 +233,10 @@ class Model(Entity):
     class_model_uri: ClassVar[URIRef] = GOCAM.Model
 
     id: Union[str, ModelId] = None
-    title: Optional[str] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
-    date: Optional[str] = None
+    legacy_id: Optional[str] = None
+    title: Optional[Union[str, ShortText]] = None
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date: Optional[Union[str, DateAsString]] = None
     state: Optional[str] = None
     version: Optional[Union[str, URIorCURIE]] = None
     comment: Optional[Union[str, List[str]]] = empty_list()
@@ -237,15 +255,18 @@ class Model(Entity):
         if not isinstance(self.id, ModelId):
             self.id = ModelId(self.id)
 
-        if self.title is not None and not isinstance(self.title, str):
-            self.title = str(self.title)
+        if self.legacy_id is not None and not isinstance(self.legacy_id, str):
+            self.legacy_id = str(self.legacy_id)
+
+        if self.title is not None and not isinstance(self.title, ShortText):
+            self.title = ShortText(self.title)
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
-        if self.date is not None and not isinstance(self.date, str):
-            self.date = str(self.date)
+        if self.date is not None and not isinstance(self.date, DateAsString):
+            self.date = DateAsString(self.date)
 
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
@@ -994,8 +1015,8 @@ class Evidence(InformationEntity):
 
     id: Union[str, EvidenceId] = None
     evidence_type: Union[str, OntologyClassId] = None
-    contributor: Optional[Union[str, List[str]]] = empty_list()
-    date: Optional[str] = None
+    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date: Optional[Union[str, DateAsString]] = None
     reference: Optional[Union[Union[str, PublicationId], List[Union[str, PublicationId]]]] = empty_list()
     with_object: Optional[Union[Union[str, EntityId], List[Union[str, EntityId]]]] = empty_list()
 
@@ -1012,10 +1033,10 @@ class Evidence(InformationEntity):
 
         if not isinstance(self.contributor, list):
             self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, str) else str(v) for v in self.contributor]
+        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
 
-        if self.date is not None and not isinstance(self.date, str):
-            self.date = str(self.date)
+        if self.date is not None and not isinstance(self.date, DateAsString):
+            self.date = DateAsString(self.date)
 
         if not isinstance(self.reference, list):
             self.reference = [self.reference] if self.reference is not None else []
@@ -1167,6 +1188,9 @@ class slots:
 slots.id = Slot(uri=GOCAM.id, name="id", curie=GOCAM.curie('id'),
                    model_uri=GOCAM.id, domain=None, range=URIRef)
 
+slots.legacy_id = Slot(uri=OIO.id, name="legacy_id", curie=OIO.curie('id'),
+                   model_uri=GOCAM.legacy_id, domain=None, range=Optional[str])
+
 slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
                    model_uri=GOCAM.name, domain=None, range=Optional[Union[str, LabelType]])
 
@@ -1186,10 +1210,10 @@ slots.provided_by = Slot(uri=PAV.providedBy, name="provided_by", curie=PAV.curie
                    model_uri=GOCAM.provided_by, domain=None, range=Optional[str])
 
 slots.contributor = Slot(uri=DCE.contributor, name="contributor", curie=DCE.curie('contributor'),
-                   model_uri=GOCAM.contributor, domain=None, range=Optional[Union[str, List[str]]])
+                   model_uri=GOCAM.contributor, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
 
 slots.date = Slot(uri=DCE.date, name="date", curie=DCE.curie('date'),
-                   model_uri=GOCAM.date, domain=None, range=Optional[str])
+                   model_uri=GOCAM.date, domain=None, range=Optional[Union[str, DateAsString]])
 
 slots.evidence_type = Slot(uri=GOCAM.evidence_type, name="evidence_type", curie=GOCAM.curie('evidence_type'),
                    model_uri=GOCAM.evidence_type, domain=None, range=Union[str, OntologyClassId],
@@ -1247,7 +1271,7 @@ slots.model_property = Slot(uri=GOCAM.model_property, name="model_property", cur
                    model_uri=GOCAM.model_property, domain=None, range=Optional[str])
 
 slots.title = Slot(uri=DCE.title, name="title", curie=DCE.curie('title'),
-                   model_uri=GOCAM.title, domain=None, range=Optional[str])
+                   model_uri=GOCAM.title, domain=None, range=Optional[Union[str, ShortText]])
 
 slots.version = Slot(uri=OWL.versionIRI, name="version", curie=OWL.curie('versionIRI'),
                    model_uri=GOCAM.version, domain=None, range=Optional[Union[str, URIorCURIE]])
