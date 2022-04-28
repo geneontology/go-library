@@ -1,0 +1,906 @@
+id: https://w3id.org/gocam
+name: gocam
+description: |-
+  GO CAM LinkML schema (experimental)
+
+  The central class in this datamodel is a [Model](Model.md). A model consists of a set of
+  [MolecularActivity](MolecularActivity.md) objects, from which hangs various elements connected by different kinds of [Association](Association.md)
+
+  See:
+    * [https://github.com/cmungall/linkml-gocam](https://github.com/cmungall/linkml-gocam)
+    * [https://cmungall.github.io/linkml-gocam/](https://cmungall.github.io/linkml-gocam/)
+    
+default_curi_maps:
+  - obo_context
+  - go_context
+  - idot_context
+  - semweb_context
+
+imports:
+ - linkml:types
+
+prefixes:
+  pav: http://purl.org/pav/
+  dce: http://purl.org/dc/elements/1.1/
+  lego: http://geneontology.org/lego/
+  linkml: https://w3id.org/linkml/
+  biolink: https://w3id.org/biolink/vocab/
+  gocam: https://w3id.org/gocam/
+  OBAN: http://purl.org/oban/
+  goshapes: http://purl.obolibrary.org/obo/go/shapes/
+  RO: http://purl.obolibrary.org/obo/RO_
+  BFO: http://purl.obolibrary.org/obo/BFO_
+  GO: http://purl.obolibrary.org/obo/GO_
+  ECO: http://purl.obolibrary.org/obo/ECO_
+  gomodel: http://model.geneontology.org/
+
+default_prefix: gocam
+default_range: string
+see_also:
+  - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7012280/
+  - https://docs.google.com/presentation/d/1ja0Vkw0AoENJ58emM77dGnqPtY1nfIJMeyVnObBxIxI/edit#slide=id.p8
+
+subsets:
+  faithful to original specification:
+    description: >-
+      Subset that deviates from the data model in the original paper [https://pubmed.ncbi.nlm.nih.gov/31548717/]
+    see_also:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7012280/bin/nihms-1067180-f0002.jpg
+  
+  deviates from original specification:
+    description: >-
+      Subset that deviates from the data model in the original paper [https://pubmed.ncbi.nlm.nih.gov/31548717/]
+    see_also:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7012280/bin/nihms-1067180-f0002.jpg
+  
+  not in original specification:
+    description: >-
+      Subset that is not explicitly mentioned in the original paper [https://pubmed.ncbi.nlm.nih.gov/31548717/] but is not necessarily a departure
+    see_also:
+      - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7012280/bin/nihms-1067180-f0002.jpg
+
+slots:
+  id:
+    identifier: true
+    range: uriorcurie
+    description: >-
+      A unique identifier for an Entity
+    comments:
+      - for individuals / test_gocam entities, these will typically be CURIEs of the form model:xxxx
+      - for OntologyClasses, these will be standard OBO CURIEs
+    
+  name:
+    aliases: [ 'label', 'display name', 'title' ]
+    description: >-
+      A human-readable name for an attribute or Entity.
+    notes:
+      GO-CAM entities typically do not have names. However, some imported from sources such as Reactome may include names
+    todos:
+      - document uniqueness conditions
+    range: label type
+    recommended: false
+    slot_uri: rdfs:label
+    exact_mappings:
+      - biolink:name
+    in_subset:
+      - not in original specification
+
+  type:
+    description: >-
+      links a GOCAM Entity (an OWL individual) to the specific class it instantiates
+    range: OntologyClass
+    slot_uri: rdf:type
+    exact_mappings:
+      - biolink:type
+    required: true
+
+  category:
+    is_a: type
+    range: category type
+    description: >-
+      Name of the high level OntologyClass in which this Entity is categorized
+    exact_mappings:
+      - biolink:category
+
+  with_object:
+    range: Entity
+    description: >-
+      An object that supports a piece of evidence
+    slot_uri: lego:evidence
+    multivalued: true
+    
+  reference:
+    range: Publication
+    description: >-
+      A publication or other reference that supports a piece of evidence
+    slot_uri: dce:source
+    multivalued: true
+    
+  provided_by:
+    description: >-
+      connects an assertion to a group that provided it
+    slot_uri: pav:providedBy
+    
+  contributor:
+    slot_uri: dce:contributor
+    description: >-
+      connects an assertion to the individual that made a contribution to it
+    multivalued: true
+    
+  date:
+    slot_uri: dce:date
+    description: >-
+      connects anything to the date
+    
+  evidence_type:
+    is_a: type
+    description: >-
+      Connectes a piece of evidence to the evidence_type from ECO
+    pattern: '^ECO:\d+$'
+    
+  type_inferences:
+    description: >-
+      links a GOCAM Entity (an OWL individual) to the specific class it instantiates
+    range: OntologyClass
+    multivalued: true
+
+  related_to:
+    abstract: true
+    range: Association
+    required: false
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity to an object DomainEntity by way of an Association object
+    
+  occurs_in:
+    is_a: related_to
+    range: OccursInAssociation
+    domain: ActivityOrProcess
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity (a MA or BP) to an object DomainEntity by way of an OccursInAssociation
+    
+  has_causal_associations:
+    is_a: related_to
+    range: CausalAssociation
+    inlined: true
+    inlined_as_list: true
+    domain: ActivityOrProcess
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity (a MA or BP) to an object DomainEntity by way of an CausalAssociation
+    comments:
+      - the specific type of causation is indicated on the CausalAssocation predicate slot
+
+  has_activity_causal_associations:
+    is_a: has_causal_associations
+    range: CausalAssociationToActivity
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity (a MA or BP) to a MolecularActivity by way of an CausalAssociation
+      
+  has_process_causal_associations:
+    is_a: has_causal_associations
+    range: CausalAssociationToProcess
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity (a MA or BP) to a BiologicalProcess by way of an CausalAssociation
+      
+      
+  happens_during:
+    is_a: related_to
+    range: HappensDuringAssociation
+    domain: ActivityOrProcess
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity (a MA or BP) to an object DomainEntity by way of a HappensDuringAssociation 
+
+  part_of:
+    is_a: related_to
+    range: PartOfAssociation
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity to an object DomainEntity by way of a PartOfAssociation
+    comments:
+      - part_of can be used with domain entities of any time, but must connect like with like
+
+  has_part:
+    is_a: related_to
+    range: HasPartAssociation
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a subject DomainEntity to an object DomainEntity by way of a HasPartAssociation
+
+  enabled by:
+    is_a: related_to
+    range: EnabledByAssociation
+    domain: MolecularActivity
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a MolecularActivity to the InformationBiomacromolecule by way of a EnabledByAssociation
+
+  has_input:
+    is_a: related_to
+    range: HasInputAssociation
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links a MA or BP to its input by way of a HasInputAssociation
+
+  has_evidence:
+    range: Evidence
+    domain: Association
+    inlined: true
+    inlined_as_list: true
+    multivalued: true
+    description: >-
+      Links an association to evidence for it
+
+  association_slot:
+    abstract: true
+    domain: Association
+    aliases: ['edge property', 'statement property']
+    description: >-
+      any slot that relates an association to another Entity
+
+  subject:
+    is_a: association_slot
+    local_names:
+      ga4gh: annotation subject
+      neo4j: node with outgoing relationship
+    description: >-
+      connects an association to the subject of the association.
+      For example, in a gene-to-phenotype association, the gene is subject and phenotype is object.
+    range: DomainEntity
+    slot_uri: rdf:subject
+    exact_mappings:
+      - owl:annotatedSource
+      - OBAN:association_has_subject
+
+  object:
+    is_a: association_slot
+    description: >-
+      connects an association to the object of the association.
+      For example, in a gene-to-phenotype association, the gene is subject and phenotype is object.
+    required: true
+    range: Entity
+    local_names:
+      ga4gh: descriptor
+      neo4j: node with incoming relationship
+    slot_uri: rdf:object
+    exact_mappings:
+      - owl:annotatedTarget
+      - OBAN:association_has_object
+
+  predicate:
+    is_a: association_slot
+    description: >-
+      A high-level grouping for the relationship type. AKA minimal predicate.
+      This is analogous to category for nodes.
+    domain: Association
+    range: predicate type
+    local_names:
+      ga4gh: annotation predicate
+      translator: predicate
+    slot_uri: rdf:predicate
+    exact_mappings:
+      - owl:annotatedProperty
+      - OBAN:association_has_predicate
+
+  # model slots
+
+  model_property:
+    abstract: true
+
+  title:
+    is_a: model_property
+    slot_uri: dce:title
+    range: string
+
+  version:
+    is_a: model_property
+    slot_uri: owl:versionIRI
+    range: uriorcurie
+
+  comment:
+    is_a: model_property
+    slot_uri: rdfs:comment
+    multivalued: true
+    range: string
+
+  state:
+    is_a: model_property
+    description: >-
+      State of the model
+    #range: ModelStateEnum
+    range: string
+    slot_uri: lego:modelstate
+
+  graph_type:
+    is_a: model_property
+    description: >-
+      Type of graph
+    range: uriorcurie
+    slot_uri: gomodel:graphType
+
+  in_taxon:
+    is_a: model_property
+    description: >-
+      Taxonomic scope of model
+    range: uriorcurie
+    slot_uri: biolink:in_taxon
+
+    
+  domain_entity_set:
+    abstract: true
+    description: >-
+      Grouping field for all domain entities 'owned' by a model
+    range: DomainEntity
+    multivalued: true
+    inlined: true
+    
+  molecular_activity_set:
+    is_a: domain_entity_set
+    description: >-
+      All MolecularActivity instances that are part_of this model
+    range: MolecularActivity
+    multivalued: true
+    inlined: true
+  biological_process_set:
+    is_a: domain_entity_set
+    description: >-
+      All BiologicalProcess instances that are part_of this model
+    range: BiologicalProcess
+    multivalued: true
+    inlined: true
+  information_biomacromolecule_set:
+    is_a: domain_entity_set
+    description: >-
+      All information macromolecule instances that are part_of this model
+    range: InformationBiomacromolecule
+    multivalued: true
+    inlined: true
+  chemical_entity_set:
+    is_a: domain_entity_set
+    description: >-
+      All ChemicalEntity instances that are part_of this model.
+    notes:
+      - if a ChemicalEntity is an InformationBiomacromolecule, do not include here. Use InformationBiomacromolecule instead
+    range: ChemicalEntity
+    multivalued: true
+    inlined: true
+  ontology_class_set:
+    is_a: domain_entity_set
+    description: >-
+      All OntologyClass objects used in this model
+    notes:
+      - OntologyClasses do not need to be attached, as they should come from elsewhere. But sometimes it is convenient to attach all referenced classes
+    range: OntologyClass
+    multivalued: true
+    inlined: true
+  
+      
+classes:
+
+   ## -- ENTITIES --
+
+  Entity:
+    abstract: true
+    description: >-
+      Abstract base class for any biological Entity or ActivityOrProcess in a GO-CAM model
+    comments:
+      - An OWL individual representing a particular Entity in a context
+      - Here Entity is generic and encompasses causal entities as well as processes, activities
+    slots:
+      - id
+    exact_mappings:
+      - goshapes:GoCamEntity
+  
+  model:
+    local_names:
+      gocam: GO-CAM model
+    is_a: Entity
+    description: >-
+      A collection of GO-CAM entities and associated metadata. A model combines multiple simple GO annotations into an integrated, semantically precise and computable model of biological function.
+    slots:
+      - id
+      - title
+      - contributor
+      - date
+      - state
+      - version
+      - comment
+      - graph_type
+      - in_taxon
+      - provided_by
+      - molecular_activity_set
+      - biological_process_set
+      - information_biomacromolecule_set
+      - chemical_entity_set
+      - ontology_class_set
+    broad_mappings:
+      - owl:Ontology
+  
+  DomainEntity:
+    abstract: true
+    description: >-
+      Abstract Entity for representing any part_of a GO-CAM model
+    aliases:
+      - contextualized OntologyClass
+      - instance
+      - GO-CAM instance
+    is_a: Entity
+    slots:
+      - id
+      - type
+      - type_inferences
+  
+  MolecularActivity:
+    local_names:
+      paper: MolecularActivity
+      go: Molecular Function
+      abbrev: MA
+    is_a: DomainEntity
+    description: >-
+      An instance of a GO molecular function
+    mixins:
+      - ActivityOrProcess
+    slots:
+      - has_activity_causal_associations
+      - has_process_causal_associations
+      - happens_during
+      - part_of
+      - enabled by
+      - has_input
+      - occurs_in
+    slot_usage:
+      part_of:
+        range: ProcessPartOfAssociation
+      has_activity_causal_associations:
+        range: ActivityToActivityCausalAssociation
+      has_process_causal_associations:
+        range: ActivityToProcessCausalAssociation
+    exact_mappings:
+      - goshapes:MolecularFunction
+
+  BiologicalProcess:
+    local_names:
+      paper: BiologicalProcess
+      go: BiologicalProcess
+      abbrev: BP
+    is_a: DomainEntity
+    description: >-
+      An instance of a GO BiologicalProcess
+    mixins:
+      - ActivityOrProcess
+      - ProcessOrPhase
+    slots:
+      - occurs_in
+      - has_activity_causal_associations
+      - has_process_causal_associations
+      - happens_during
+    slot_usage:
+      has_activity_causal_associations:
+        range: ProcessToActivityCausalAssociation
+      has_process_causal_associations:
+        range: ProcessToProcessCausalAssociation
+    exact_mappings:
+      - goshapes:BiologicalProcess
+
+  AnatomicalEntity:
+    local_names:
+      paper: Location
+      go: AnatomicalEntity
+      abbrev: AE
+    description: >-
+      An instance of a GO cellular AnatomicalEntity, a cell type, or gross anatomical structure
+    is_a: DomainEntity
+    mixins:
+      - Continuant
+    slots:
+      - part_of
+    slot_usage:
+      category:
+        range: AnatomicalEntityCategory
+      part_of:
+        range: AnatomicalPartOfAssociation
+    exact_mappings:
+      - goshapes:AnatomicalEntity
+
+  ChemicalEntity:
+    local_names:
+      paper: Target Entity
+      abbrev: CE
+    description: >-
+      An instance of a ChemicalEntity, as defined in CHEBI, including macromolecules defined in NEO
+    is_a: DomainEntity
+    
+  InformationBiomacromolecule:
+    description: >-
+      This class groups gene, gene product (protein on ncRNA), or a macromolecular complex that is capable of carrying out a MolecularActivity
+    local_names:
+      paper: Active Entity
+      go: Gene Product or Complex
+      abbrev: GP
+    is_a: ChemicalEntity
+    mixins:
+      - Continuant
+    slots:
+      - has_part
+    slot_usage:
+      category:
+        range: InformationBiomacromoleculeCategory
+      has_part:
+        range: MacromoleculeHasPartAssociation
+    exact_mappings:
+      - goshapes:AnatomicalEntity
+  
+  ## -- ASSOCIATIONS --
+
+  Association:
+    abstract: true
+    description: >-
+      An association between a DomainEntity (e.g. a MolecularActivity) and another DomainEntity (e.g. another MolecularActivity) with evidence and provenance attached
+    comments:
+      - Note this is modeled as a class rather than property/slot to allow for attachment of evidence
+      - This class cannot be instantiated directly. Use a subclass
+    slots:
+      - has_evidence
+      - subject
+      - predicate
+      - object
+    class_uri: rdf:Statement
+      
+  OccursInAssociation:
+    is_a: Association
+    description: >-
+      An association owned by a MA or BP that connect to an AE object in which the activity/process is carried out
+    todos:
+      - This currently allows a direct occurs_in association between an activity and a cell or AnatomicalEntity. We can add constraints at the schema level at the expense of some complexity
+    slot_usage:
+      object:
+        range: AnatomicalEntity
+        role: location
+
+  CausalAssociation:
+    abstract: true
+    is_a: Association
+    description: >-
+      An association owned by an upstream MA or BP that connects to a downstream MA or BP. The nature of the causal relationship is indicated with the predicate.
+    slot_usage:
+      subject:
+        role: upstream ActivityOrProcess
+        description: >-
+          The upstream ActivityOrProcess
+      object:
+        range: ActivityOrProcess
+        role: downstream ActivityOrProcess
+        description: >-
+          The upstream ActivityOrProcess
+      predicate:
+        description: >-
+          The causal relationship type which holds between the two activities/processes. This must be drawn from the causal relation hierarchy in RO
+
+  CausalAssociationToActivity:
+    mixin: true
+    slot_usage:
+      object:
+        range: MolecularActivity
+        role: downstream activity
+        description: >-
+          The downstream MolecularActivity
+
+  CausalAssociationToProcess:
+    mixin: true
+    slot_usage:
+      object:
+        range: BiologicalProcess
+        role: downstream process
+        description: >-
+          The downstream BiologicalProcess
+          
+  ActivityToActivityCausalAssociation:
+    is_a: CausalAssociation
+    mixins:
+      - CausalAssociationToActivity
+    description: >-
+      A CausalAssociation between two molecular activities
+    in_subset:
+      - faithful to original specification
+    slot_usage:
+      subject:
+        range: MolecularActivity
+        role: upstream activity
+        description: >-
+          The upstream MolecularActivity
+      object:
+        range: MolecularActivity
+        role: downstream activity
+        description: >-
+          The downstream MolecularActivity
+          
+  ProcessToProcessCausalAssociation:
+    is_a: CausalAssociation
+    description: >-
+      A CausalAssociation between two BiologicalProcesses
+    mixins:
+      - CausalAssociationToProcess
+    slot_usage:
+      subject:
+        range: BiologicalProcess
+        role: upstream process
+        description: >-
+          The upstream BiologicalProcess
+      object:
+        range: BiologicalProcess
+        role: downstream process
+        description: >-
+          The downstream BiologicalProcess
+          
+  ProcessToActivityCausalAssociation:
+    is_a: CausalAssociation
+    in_subset:
+      - deviates from original specification
+    mixins:
+      - CausalAssociationToActivity
+    description: >-
+      A CausalAssociation between a BiologicalProcess and a MolecularActivity
+    slot_usage:
+      subject:
+        range: BiologicalProcess
+        role: upstream process
+        description: >-
+          The upstream BiologicalProcess
+      object:
+        range: MolecularActivity
+        role: downstream activity
+        description: >-
+          The downstream MolecularActivity
+          
+  ActivityToProcessCausalAssociation:
+    is_a: CausalAssociation
+    in_subset:
+      - deviates from original specification
+    mixins:
+      - CausalAssociationToProcess
+    description: >-
+      A CausalAssociation between a MolecularActivity and a BiologicalProcess
+    slot_usage:
+      subject:
+        range: MolecularActivity
+        role: downstream activity
+        description: >-
+          The downstream MolecularActivity
+      object:
+        range: BiologicalProcess
+        role: upstream process
+        description: >-
+          The upstream BiologicalProcess
+          
+  HasPartAssociation:
+    abstract: true
+    is_a: Association
+    description: >-
+      General grouping for associations that Link an Entity to its parts by a HasPartAssociation
+    
+  MacromoleculeHasPartAssociation:
+    is_a: HasPartAssociation
+    slot_usage:
+      object:
+        range: Continuant
+        role: part
+    description: >-
+      Connects a macromolecule (such as a protein complex) to its parts (gene products or chemical entities)
+
+  PartOfAssociation:
+    abstract: true
+    is_a: Association
+    description: >-
+      General grouping for associations that Link an Entity to its wholes by a PartOfAssociation
+
+  AnatomicalPartOfAssociation:
+    is_a: PartOfAssociation
+    slot_usage:
+      object:
+        range: AnatomicalEntity
+        role: whole
+    description: >-
+      Connects an AnatomicalEntity (such as a component, cell, or gross AnatomicalEntity) to its parent parts
+
+  ProcessPartOfAssociation:
+    is_a: PartOfAssociation
+    slot_usage:
+      object:
+        range: BiologicalProcess
+        role: whole
+    description: >-
+      Connects a MA or BP to its parent parts
+
+  EnabledByAssociation:
+    is_a: Association
+    slot_usage:
+      object:
+        range: InformationBiomacromolecule
+        role: agent
+    description: >-
+      Connects an MA to the InformationBiomacromolecule that executes the activity
+
+  HappensDuringAssociation:
+    is_a: Association
+    slot_usage:
+      object:
+        range: ActivityOrProcess
+        role: phase
+    description: >-
+      Connects an MF to a ProcessOrPhase in which the process occurs
+
+  HasInputAssociation:
+    is_a: Association
+    slot_usage:
+      object:
+        range: Continuant
+        role: input
+    description: >-
+      Connects an MF or BP to its input Entity, which may be a ChemicalEntity, an InformationBiomacromolecule, or a larger structure
+
+  ## -- Ontologies --
+
+  # TODO: map
+  OntologyClass:
+    slots:
+      - id
+      - name
+      - category
+
+  ## -- Evidence --
+
+  InformationEntity:
+    is_a: Entity
+    abstract: true
+
+  Publication:
+    is_a: InformationEntity
+    description: >-
+      A published Entity such as a paper in pubmed
+    id_prefixes:
+      - PMID
+      - DOI
+    
+  Evidence:
+    is_a: InformationEntity
+    description: >-
+      An instance of a piece of Evidence. Evidence attributes such as type, reference, hang off of here
+    slots:
+      - contributor
+      - date
+      - evidence_type
+      - reference
+      - with_object
+    see_also:
+      - https://docs.google.com/presentation/d/1ja0Vkw0AoENJ58emM77dGnqPtY1nfIJMeyVnObBxIxI/edit#slide=id.p9
+      
+
+  ## -- MIXINS --
+
+  DomainEntityMixin:
+    description: >-
+      Grouping for mixins that apply to GO-CAM entities. These mixins allow us to group together entities that are alike in some fashion
+    abstract: true
+    mixin: true
+    slots:
+      - id
+  
+  ActivityOrProcess:
+    is_a: DomainEntityMixin
+    mixin: true
+    union_of:
+      - MolecularActivity
+      - BiologicalProcess
+      
+  ProcessOrPhase:
+    is_a: DomainEntityMixin
+    mixin: true
+    union_of:
+      - BiologicalProcess
+      
+  Continuant:
+    is_a: DomainEntityMixin
+    mixin: true
+
+types:
+
+  chemical formula value:
+    uri: xsd:string
+    base: str
+    description: A chemical formula
+    notes:
+      - Should be implemented as a stronger type
+
+  category type:
+    typeof: uriorcurie
+    description: >-
+      A primitive type in which the value denotes a class within the biolink model.
+      The value must be a URI or a CURIE. In a Neo4j representation, the value should
+      be the CURIE for the biolink class, for example biolink:Gene. For an RDF representation,
+      the value should be a URI such as https://w3id.org/biolink/vocab/Gene
+
+  iri type:
+    typeof: uriorcurie
+    description: >-
+      An IRI
+
+  label type:
+    typeof: string
+    description: >-
+      A string that provides a human-readable name for an Entity
+
+  predicate type:
+    typeof: uriorcurie
+    description: >-
+      A RO identifier
+
+  narrative text:
+    typeof: string
+    description: >-
+      A string that provides a human-readable description of something
+
+  symbol type:
+    typeof: string
+
+
+enums:
+
+  ModelStateEnum:
+    description: >-
+      Status of a model
+    permissible_values:
+      production:
+      development:
+
+  AnatomicalEntityCategory:
+    permissible_values:
+      CellularAnatomicalEntity:
+      Cell:
+      GrossAnatomicalStructure:
+      Organism:
+
+  InformationBiomacromoleculeCategory:
+    permissible_values:
+      GeneOrReferenceProtein:
+        meaning: biolink.GeneOrGeneProduct
+      ProteinIsoform:
+      MacromolecularComplex:
+      Unknown:
+
+  CausalPredicateEnum:
+    permissible_values:
+      causally upstream of, positive effect:
+        meaning: RO:0002304
+      causally upstream of, negative effect:
+        meaning: RO:0002305
+      causally upstream of:
+        meaning: RO:0002411
+      immediately causally upstream of:
+        meaning: RO:0002412
+      causally upstream of or within:
+        meaning: RO:0002418
+      causally upstream of or within, negative effect:
+        meaning: RO:0004046
+      causally upstream of or within, positive effect:
+        meaning: RO:0004047        
+      regulates:
+        meaning: RO:0002211
+      negatively regulates:
+        meaning: RO:0002212
+      positively regulates:
+        meaning: RO:0002213
+
+        

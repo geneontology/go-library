@@ -1,0 +1,13 @@
+id: https://geneontology.org/datamodels/go-library
+name: go_library
+title: GO Library
+description: |-
+  Enter a detailed description of your project here
+default_curi_maps:
+  - semweb_context
+imports:
+  - test_gocam
+  - amigo_solr
+prefixes:
+  linkml: https://w3id.org/linkml/
+default_range: string

@@ -1,0 +1,44 @@
+id: https://linkml.io/sparqlfun/resultset
+name: sparqlfun-resultset
+title: SPARQLFun Result Sets
+description: |-
+  SPARQL Query Result Model
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+prefixes:
+  resultset: https://linkml.io/sparqlfun/resultset
+  linkml: https://w3id.org/linkml/
+
+default_prefix: resultset
+default_range: string
+
+imports:
+  - linkml:types
+
+classes:
+  GenericResult:
+    mixin: true
+  ResultSet:
+    slots:
+      - results
+  Binding:
+    slots:
+      - binding_key
+      - binding_value
+
+slots:
+  results:
+    multivalued: true
+    range: GenericResult
+  binding_key:
+    key: true
+    required: true
+    range: string
+  binding_value:
+    range: string
+  query_template:
+    range: string
+  bindings:
+    range: Binding
+    multivalued: true
+    inlined: true
