@@ -1,6 +1,4 @@
-# Gene Ontology
-
-Example of a consolidate GO monorepo
+# EXPERIMENTAL GO monorepo
 
 * Truly generic libraries should live elsewhere
 
