@@ -134,7 +134,7 @@ unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
-version = "8.1.2"
+version = "8.1.3"
 description = "Composable command line interface toolkit"
 category = "main"
 optional = false
@@ -445,8 +445,21 @@ format = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validat
 format_nongpl = ["fqdn", "idna", "isoduration", "jsonpointer (>1.13)", "rfc3339-validator", "rfc3986-validator (>0.1.0)", "uri-template", "webcolors (>=1.11)"]
 
 [[package]]
+name = "lark"
+version = "1.1.2"
+description = "a modern parsing library"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+atomic_cache = ["atomicwrites"]
+nearley = ["js2py"]
+regex = ["regex"]
+
+[[package]]
 name = "linkml"
-version = "1.2.8"
+version = "1.2.10"
 description = "Linked Open Data Modeling Language"
 category = "main"
 optional = false
@@ -500,7 +513,7 @@ linkml-runtime = ">=1.1.6"
 
 [[package]]
 name = "linkml-runtime"
-version = "1.2.7"
+version = "1.2.9"
 description = "Runtime environment for LinkML, the Linked open data modeling language"
 category = "main"
 optional = false
@@ -727,7 +740,7 @@ viz = ["pygraphviz"]
 
 [[package]]
 name = "oaklib"
-version = "0.1.10"
+version = "0.1.16"
 description = "Ontology Access Kit: Python library for common ontology operations over a variety of backends"
 category = "main"
 optional = false
@@ -735,12 +748,14 @@ python-versions = ">=3.9,<4.0"
 
 [package.dependencies]
 appdirs = ">=1.4.4,<2.0.0"
-linkml-runtime = ">=1.2.3,<2.0.0"
+lark = ">=1.1.2,<2.0.0"
+linkml-runtime = ">=1.1.9,<2.0.0"
 networkx = ">=2.7.1,<3.0.0"
 nxontology = ">=0.4.0,<0.5.0"
 pronto = ">=2.4.5,<3.0.0"
 ratelimit = ">=2.2.1,<3.0.0"
-SPARQLWrapper = ">=2.0.0,<3.0.0"
+semsql = ">=0.1.3,<0.2.0"
+SPARQLWrapper = "*"
 SQLAlchemy = ">=1.4.32,<2.0.0"
 sssom = ">=0.3.8,<0.4.0"
 
@@ -1128,6 +1143,19 @@ python-versions = ">=3.7"
 numpy = ">=1.16.5"
 
 [[package]]
+name = "semsql"
+version = "0.1.3"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.8,<4.0"
+
+[package.dependencies]
+click = ">=8.1.3,<9.0.0"
+linkml = ">=1.2.10,<2.0.0"
+SQLAlchemy-Utils = ">=0.38.2,<0.39.0"
+
+[[package]]
 name = "shexjsg"
 version = "0.8.2"
 description = "ShExJSG - Astract Syntax Tree for the ShEx 2.0 language"
@@ -1156,7 +1184,7 @@ python-versions = "*"
 
 [[package]]
 name = "sparqlfun"
-version = "0.1.2"
+version = "0.2.1"
 description = "SPARQL templates for LinkML"
 category = "main"
 optional = false
@@ -1164,7 +1192,7 @@ python-versions = ">=3.9,<4.0"
 
 [package.dependencies]
 Jinja2 = ">=3.0.3,<4.0.0"
-linkml-runtime = ">=1.1.15"
+linkml-runtime = ">=1.2.9,<2.0.0"
 rdflib = ">=6.1.1"
 
 [[package]]
@@ -1361,6 +1389,32 @@ pymysql = ["pymysql (<1)", "pymysql"]
 sqlcipher = ["sqlcipher3-binary"]
 
 [[package]]
+name = "sqlalchemy-utils"
+version = "0.38.2"
+description = "Various utility functions for SQLAlchemy."
+category = "main"
+optional = false
+python-versions = "~=3.4"
+
+[package.dependencies]
+six = "*"
+SQLAlchemy = ">=1.0"
+
+[package.extras]
+arrow = ["arrow (>=0.3.4)"]
+babel = ["Babel (>=1.3)"]
+color = ["colour (>=0.0.4)"]
+encrypted = ["cryptography (>=0.6)"]
+intervals = ["intervals (>=0.7.1)"]
+password = ["passlib (>=1.6,<2.0)"]
+pendulum = ["pendulum (>=2.0.5)"]
+phone = ["phonenumbers (>=5.9.2)"]
+test = ["pytest (>=2.7.1)", "Pygments (>=1.2)", "Jinja2 (>=2.3)", "docutils (>=0.10)", "flexmock (>=0.9.7)", "mock (==2.0.0)", "psycopg2 (>=2.5.1)", "psycopg2cffi (>=2.8.1)", "pg8000 (>=1.12.4)", "pytz (>=2014.2)", "python-dateutil (>=2.6)", "pymysql", "flake8 (>=2.4.0)", "isort (>=4.2.2)", "pyodbc", "backports.zoneinfo"]
+test_all = ["Babel (>=1.3)", "Jinja2 (>=2.3)", "Pygments (>=1.2)", "arrow (>=0.3.4)", "colour (>=0.0.4)", "cryptography (>=0.6)", "docutils (>=0.10)", "flake8 (>=2.4.0)", "flexmock (>=0.9.7)", "furl (>=0.4.1)", "intervals (>=0.7.1)", "isort (>=4.2.2)", "mock (==2.0.0)", "passlib (>=1.6,<2.0)", "pendulum (>=2.0.5)", "pg8000 (>=1.12.4)", "phonenumbers (>=5.9.2)", "psycopg2 (>=2.5.1)", "psycopg2cffi (>=2.8.1)", "pymysql", "pyodbc", "pytest (>=2.7.1)", "python-dateutil", "python-dateutil (>=2.6)", "pytz (>=2014.2)", "backports.zoneinfo"]
+timezone = ["python-dateutil"]
+url = ["furl (>=0.4.1)"]
+
+[[package]]
 name = "sssom"
 version = "0.3.8"
 description = "Operations on SSSOM mapping tables"
@@ -1481,7 +1535,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "2772ab4ab17a1637a2f8384e9f17ddc1d39567d50468812c0cae9964634142b8"
+content-hash = "f182d1c39f13bfb6a17d4bcaa8f60abf2bd323ff1d722dc76bec095c017415f5"
 
 [metadata.files]
 aiohttp = [
@@ -1605,8 +1659,8 @@ charset-normalizer = [
     {file = "charset_normalizer-2.0.12-py3-none-any.whl", hash = "sha256:6881edbebdb17b39b4eaaa821b438bf6eddffb4468cf344f09f89def34a8b1df"},
 ]
 click = [
-    {file = "click-8.1.2-py3-none-any.whl", hash = "sha256:24e1a4a9ec5bf6299411369b208c1df2188d9eb8d916302fe6bf03faed227f1e"},
-    {file = "click-8.1.2.tar.gz", hash = "sha256:479707fe14d9ec9a0757618b7a100a0ae4c4e236fac5b7f80ca68028141a1a72"},
+    {file = "click-8.1.3-py3-none-any.whl", hash = "sha256:bb4d8133cb15a609f44e8213d9b391b0809795062913b383c62be0ee95b1db48"},
+    {file = "click-8.1.3.tar.gz", hash = "sha256:7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e"},
 ]
 colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
@@ -1842,17 +1896,21 @@ jsonschema = [
     {file = "jsonschema-4.4.0-py3-none-any.whl", hash = "sha256:77281a1f71684953ee8b3d488371b162419767973789272434bbc3f29d9c8823"},
     {file = "jsonschema-4.4.0.tar.gz", hash = "sha256:636694eb41b3535ed608fe04129f26542b59ed99808b4f688aa32dcf55317a83"},
 ]
+lark = [
+    {file = "lark-1.1.2-py2.py3-none-any.whl", hash = "sha256:c1ab213fc5e2d273fe2d91da218ccc8b5b92d065b17faa5e743499cb16594b7d"},
+    {file = "lark-1.1.2.tar.gz", hash = "sha256:7a8d0c07d663da9391d7faee1bf1d7df4998c47ca43a593cbef5c7566acd057a"},
+]
 linkml = [
-    {file = "linkml-1.2.8-py3-none-any.whl", hash = "sha256:9de4ebf98708bff9bebd98713fab55c30beaf1c5d1311737f31c29573ac79953"},
-    {file = "linkml-1.2.8.tar.gz", hash = "sha256:3da432b706108d5e3ebbce0df06b7e45bfea5b7c97559fefd6bcf754ed184250"},
+    {file = "linkml-1.2.10-py3-none-any.whl", hash = "sha256:35634789d46406ebe103a70715ccb6e05a4ffc70f31d3597b5b25bdf8baee08f"},
+    {file = "linkml-1.2.10.tar.gz", hash = "sha256:cfefac344adea6d47ed50cdc6787d1f8be8687019fb0df6050b9f1a5e7714904"},
 ]
 linkml-dataops = [
     {file = "linkml_dataops-0.1.0-py3-none-any.whl", hash = "sha256:193cf7f659e5f07946d2c2761896910d5f7151d91282543b1363801f68307f4c"},
     {file = "linkml_dataops-0.1.0.tar.gz", hash = "sha256:4550eab65e78b70dc3b9c651724a94ac2b1d1edb2fbe576465f1d6951a54ed04"},
 ]
 linkml-runtime = [
-    {file = "linkml_runtime-1.2.7-py3-none-any.whl", hash = "sha256:ba02d958af88ebc3eff8b521adb61b89049ced91523d637543dffe1493ae9900"},
-    {file = "linkml_runtime-1.2.7.tar.gz", hash = "sha256:8fa7d89a370217759a4e1c883c9da17e3dbb4144e55cfc5a4bd3d69b66b66d3e"},
+    {file = "linkml_runtime-1.2.9-py3-none-any.whl", hash = "sha256:99cee1eff5b34cd2d1da0b9bf8cd91b9f0c2dcc0b4a9a7e44c242f4a0043d91a"},
+    {file = "linkml_runtime-1.2.9.tar.gz", hash = "sha256:17fc4ad38e1e421101b2e934eca7f9d8b57f301038efe8e3fa669146b7c9a85f"},
 ]
 linkml-solr = [
     {file = "linkml-solr-0.1.2.tar.gz", hash = "sha256:90ffc06da45581a2f8ea21c7d89dcd8f3e63e70f41c14eaad550e84eaa3ec570"},
@@ -2027,8 +2085,8 @@ nxontology = [
     {file = "nxontology-0.4.1.tar.gz", hash = "sha256:8f1e5d6d7787542e9414be4ae34bb09e369dbaf2d6c646bba2d18b122c083d44"},
 ]
 oaklib = [
-    {file = "oaklib-0.1.10-py3-none-any.whl", hash = "sha256:6c1103bfe3474ee50239d397c5f7b3f9c7647119653f03df0d3d74a776ef9536"},
-    {file = "oaklib-0.1.10.tar.gz", hash = "sha256:9e0065b5b6e02dfebf3f6ae67315e5286a4a4ace3d419fbeaa5ff124f1d6a854"},
+    {file = "oaklib-0.1.16-py3-none-any.whl", hash = "sha256:47fccf283a23d6129025adcdd4ff710cac6a2cd7c7af2892ea1aeaae6dac1544"},
+    {file = "oaklib-0.1.16.tar.gz", hash = "sha256:94e97a4a66f535a4b7758f1c9bff343e1b52bfb146f04c70b2114b4da494fb89"},
 ]
 openpyxl = [
     {file = "openpyxl-3.0.9-py2.py3-none-any.whl", hash = "sha256:8f3b11bd896a95468a4ab162fc4fcd260d46157155d1f8bfaabb99d88cfcf79f"},
@@ -2324,6 +2382,10 @@ scipy = [
     {file = "scipy-1.6.1-cp39-cp39-win_amd64.whl", hash = "sha256:a5193a098ae9f29af283dcf0041f762601faf2e595c0db1da929875b7570353f"},
     {file = "scipy-1.6.1.tar.gz", hash = "sha256:c4fceb864890b6168e79b0e714c585dbe2fd4222768ee90bc1aa0f8218691b11"},
 ]
+semsql = [
+    {file = "semsql-0.1.3-py3-none-any.whl", hash = "sha256:d94f7d95f9ce545bf99b712ea2952d535ca1d1c43391b0af1fe9bfccd3178d00"},
+    {file = "semsql-0.1.3.tar.gz", hash = "sha256:274129e95d72181600424a84b0bddd9aaf11f8be50096d9da49fb79ddba2aeb8"},
+]
 shexjsg = [
     {file = "ShExJSG-0.8.2-py2.py3-none-any.whl", hash = "sha256:3b0d8432dd313bee9e1343382c5e02e9908dd941a7dd7342bf8c0200fe523766"},
     {file = "ShExJSG-0.8.2.tar.gz", hash = "sha256:f17a629fc577fa344382bdee143cd9ff86588537f9f811f66cea6f63cdbcd0b6"},
@@ -2337,8 +2399,8 @@ snowballstemmer = [
     {file = "snowballstemmer-2.2.0.tar.gz", hash = "sha256:09b16deb8547d3412ad7b590689584cd0fe25ec8db3be37788be3810cbf19cb1"},
 ]
 sparqlfun = [
-    {file = "sparqlfun-0.1.2-py3-none-any.whl", hash = "sha256:d3f6bde58b15a8877926b66410a3179de912b9749a071780e0326c83f0448354"},
-    {file = "sparqlfun-0.1.2.tar.gz", hash = "sha256:28072345cba8004896311e36a5eff0bd3e8f757a81e9a2ef38e7b7ce2a376372"},
+    {file = "sparqlfun-0.2.1-py3-none-any.whl", hash = "sha256:203a50bdf8c5ca64c266d46d3a3859c5287e5d1591db36c6a48afe7d7be44dbe"},
+    {file = "sparqlfun-0.2.1.tar.gz", hash = "sha256:73cd3cfbc3993a94a2ae5b5d0514a01069e7b7cad55d30ad46dcd91ba84f9157"},
 ]
 sparqlslurper = [
     {file = "sparqlslurper-0.5.1-py3-none-any.whl", hash = "sha256:ae49b2d8ce3dd38df7a40465b228ad5d33fb7e11b3f248d195f9cadfc9cfff87"},
@@ -2421,6 +2483,10 @@ sqlalchemy = [
     {file = "SQLAlchemy-1.4.36-cp39-cp39-win32.whl", hash = "sha256:e12532c4d3f614678623da5d852f038ace1f01869b89f003ed6fe8c793f0c6a3"},
     {file = "SQLAlchemy-1.4.36-cp39-cp39-win_amd64.whl", hash = "sha256:cb441ca461bf97d00877b607f132772644b623518b39ced54da433215adce691"},
     {file = "SQLAlchemy-1.4.36.tar.gz", hash = "sha256:64678ac321d64a45901ef2e24725ec5e783f1f4a588305e196431447e7ace243"},
+]
+sqlalchemy-utils = [
+    {file = "SQLAlchemy-Utils-0.38.2.tar.gz", hash = "sha256:9e01d6d3fb52d3926fcd4ea4a13f3540701b751aced0316bff78264402c2ceb4"},
+    {file = "SQLAlchemy_Utils-0.38.2-py3-none-any.whl", hash = "sha256:622235b1598f97300e4d08820ab024f5219c9a6309937a8b908093f487b4ba54"},
 ]
 sssom = [
     {file = "sssom-0.3.8.tar.gz", hash = "sha256:c881774b070f4c2ba5e6c19ae995ea9e46e801204464cc21e437a9b8165d52de"},

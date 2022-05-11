@@ -81,7 +81,7 @@ slots:
     description: >-
       A human-readable name for an attribute or Entity.
     notes:
-      GO-CAM entities typically do not have names. However, some imported from sources such as Reactome may include names
+      - GO-CAM entities typically do not have names. However, some imported from sources such as Reactome may include names
     todos:
       - document uniqueness conditions
     range: label type

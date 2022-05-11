@@ -10,7 +10,7 @@ from linkml_dataops.query.queryengine import QueryEngine
 from linkml_runtime import CurieNamespace, SchemaView
 from linkml_runtime.dumpers import yaml_dumper
 from oaklib.datamodels.vocabulary import DEFAULT_PREFIX_MAP
-from oaklib.implementations.sparql.sparql_implementation import _sparql_values
+from oaklib.implementations.sparql.abstract_sparql_implementation import _sparql_values
 from oaklib.implementations.sparql.sparql_query import SparqlQuery
 from oaklib.implementations.ubergraph import UbergraphImplementation
 from oaklib.interfaces.basic_ontology_interface import PREFIX_MAP
