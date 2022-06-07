@@ -19,6 +19,8 @@ src/go_library/datamodel/%_api.py: src/linkml/%.yaml
 	$(RUN) gen-python-api $< > $@.tmp && mv $@.tmp $@
 src/go_library/sqla/%.py: src/linkml/%.yaml
 	$(RUN) gen-sqla $< > $@.tmp && mv $@.tmp $@
+js/datamodel/%.ts: src/linkml/%.yaml
+	$(RUN) gen-typescript $< > $@.tmp && mv $@.tmp $@
 
 db/%.db: ../semantic-sql/db/%.db
 	cp $< $@

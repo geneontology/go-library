@@ -56,8 +56,6 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
         pm = deepcopy(super().get_prefix_map())
         return self.add_prefixes(pm, [gocam_dm.GOMODEL])
 
-
-
     def instances(self, class_curie: CURIE) -> Iterator[CURIE]:
         class_uri = self.curie_to_sparql(class_curie)
         query = SparqlQuery(select=['?s'],

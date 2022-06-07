@@ -8,7 +8,7 @@ default_curi_maps:
 imports:
   - gocam
   - amigo_solr
-  - gaf
+  - standard_annotations_flat
 prefixes:
   linkml: https://w3id.org/linkml/
 default_range: string

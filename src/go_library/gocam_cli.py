@@ -61,17 +61,17 @@ predicate_option = click.option('--predicate')
 @input_option
 @add_option
 def main(verbose: int, quiet: bool, input: str, limit: int, add: List):
-    """Run the oaklib Command Line.
+    """Run the golib Command Line.
 
     A subcommand must be passed - for example: ancestors, terms, ...
 
     Most commands require an input ontology to be specified:
 
-        runoak -i <INPUT SPECIFICATION> SUBCOMMAND <SUBCOMMAND OPTIONS AND ARGUMENTS>
+        gocam -i <INPUT SPECIFICATION> SUBCOMMAND <SUBCOMMAND OPTIONS AND ARGUMENTS>
 
     Get help on any command, e.g:
 
-        runoak viz -h
+        gocam viz -h
     """
     if verbose >= 2:
         logging.basicConfig(level=logging.DEBUG)

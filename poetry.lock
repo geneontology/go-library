@@ -218,7 +218,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "fsspec"
-version = "2022.3.0"
+version = "2022.5.0"
 description = "File-system specification"
 category = "main"
 optional = false
@@ -459,27 +459,26 @@ regex = ["regex"]
 
 [[package]]
 name = "linkml"
-version = "1.2.10"
+version = "1.2.13"
 description = "Linked Open Data Modeling Language"
 category = "main"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.7.6,<4.0.0"
 
 [package.dependencies]
-antlr4-python3-runtime = ">=4.9,<4.10"
+antlr4-python3-runtime = ">=4.9.0,<4.10"
 argparse = ">=1.4.0"
 click = ">=7.0"
 graphviz = ">=0.10.1"
 hbreader = "*"
 isodate = ">=0.6.0"
 jinja2 = "*"
-jsonasobj2 = ">=1.0.3,<2.0"
+jsonasobj2 = ">=1.0.3,<2.0.0"
 jsonschema = ">=3.0.1"
 linkml-dataops = "*"
-linkml-runtime = ">=1.2.4,<1.3.0"
+linkml-runtime = "1.2.16"
 myst-parser = "*"
 openpyxl = "*"
-pandas = "*"
 parse = "*"
 prefixcommons = ">=0.1.7"
 pydantic = "*"
@@ -490,11 +489,12 @@ python-dateutil = "*"
 pyyaml = "*"
 rdflib = ">=6.0.0"
 requests = ">=2.22"
-sphinx = "*"
 sphinx-click = "*"
-sphinx-rtd-theme = "*"
 sqlalchemy = ">=1.4.31"
 watchdog = ">=0.9.0"
+
+[package.extras]
+docs = ["sphinx-rtd-theme", "sphinx"]
 
 [[package]]
 name = "linkml-dataops"
@@ -513,7 +513,7 @@ linkml-runtime = ">=1.1.6"
 
 [[package]]
 name = "linkml-runtime"
-version = "1.2.9"
+version = "1.2.16"
 description = "Runtime environment for LinkML, the Linked open data modeling language"
 category = "main"
 optional = false
@@ -740,7 +740,7 @@ viz = ["pygraphviz"]
 
 [[package]]
 name = "oaklib"
-version = "0.1.16"
+version = "0.1.19"
 description = "Ontology Access Kit: Python library for common ontology operations over a variety of backends"
 category = "main"
 optional = false
@@ -749,12 +749,12 @@ python-versions = ">=3.9,<4.0"
 [package.dependencies]
 appdirs = ">=1.4.4,<2.0.0"
 lark = ">=1.1.2,<2.0.0"
-linkml-runtime = ">=1.1.9,<2.0.0"
+linkml-runtime = ">=1.2.15,<2.0.0"
 networkx = ">=2.7.1,<3.0.0"
 nxontology = ">=0.4.0,<0.5.0"
 pronto = ">=2.4.5,<3.0.0"
 ratelimit = ">=2.2.1,<3.0.0"
-semsql = ">=0.1.3,<0.2.0"
+semsql = ">=0.1.6,<0.2.0"
 SPARQLWrapper = "*"
 SQLAlchemy = ">=1.4.32,<2.0.0"
 sssom = ">=0.3.8,<0.4.0"
@@ -1144,7 +1144,7 @@ numpy = ">=1.16.5"
 
 [[package]]
 name = "semsql"
-version = "0.1.3"
+version = "0.1.6"
 description = ""
 category = "main"
 optional = false
@@ -1152,7 +1152,7 @@ python-versions = ">=3.8,<4.0"
 
 [package.dependencies]
 click = ">=8.1.3,<9.0.0"
-linkml = ">=1.2.10,<2.0.0"
+linkml-runtime = ">=1.2.15,<2.0.0"
 SQLAlchemy-Utils = ">=0.38.2,<0.39.0"
 
 [[package]]
@@ -1269,21 +1269,6 @@ python-versions = ">=3.7"
 click = ">=7.0"
 docutils = "*"
 sphinx = ">=2.0"
-
-[[package]]
-name = "sphinx-rtd-theme"
-version = "1.0.0"
-description = "Read the Docs theme for Sphinx"
-category = "main"
-optional = false
-python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-
-[package.dependencies]
-docutils = "<0.18"
-sphinx = ">=1.6"
-
-[package.extras]
-dev = ["transifex-client", "sphinxcontrib-httpdomain", "bump2version"]
 
 [[package]]
 name = "sphinxcontrib-applehelp"
@@ -1535,7 +1520,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "f182d1c39f13bfb6a17d4bcaa8f60abf2bd323ff1d722dc76bec095c017415f5"
+content-hash = "a883fb15da062321e482e634441798556c5a4081992c1bb6dd46a5033fd0033d"
 
 [metadata.files]
 aiohttp = [
@@ -1771,8 +1756,8 @@ frozenlist = [
     {file = "frozenlist-1.3.0.tar.gz", hash = "sha256:ce6f2ba0edb7b0c1d8976565298ad2deba6f8064d2bebb6ffce2ca896eb35b0b"},
 ]
 fsspec = [
-    {file = "fsspec-2022.3.0-py3-none-any.whl", hash = "sha256:a53491b003210fce6911dd8f2d37e20c41a27ce52a655eef11b885d1578ed4cf"},
-    {file = "fsspec-2022.3.0.tar.gz", hash = "sha256:fd582cc4aa0db5968bad9317cae513450eddd08b2193c4428d9349265a995523"},
+    {file = "fsspec-2022.5.0-py3-none-any.whl", hash = "sha256:2c198c50eb541a80bbd03540b07602c4a957366f3fb416a1f270d34bd4ff0926"},
+    {file = "fsspec-2022.5.0.tar.gz", hash = "sha256:7a5459c75c44e760fbe6a3ccb1f37e81e023cde7da8ba20401258d877ec483b4"},
 ]
 ghp-import = [
     {file = "ghp-import-2.0.2.tar.gz", hash = "sha256:947b3771f11be850c852c64b561c600fdddf794bab363060854c1ee7ad05e071"},
@@ -1901,16 +1886,16 @@ lark = [
     {file = "lark-1.1.2.tar.gz", hash = "sha256:7a8d0c07d663da9391d7faee1bf1d7df4998c47ca43a593cbef5c7566acd057a"},
 ]
 linkml = [
-    {file = "linkml-1.2.10-py3-none-any.whl", hash = "sha256:35634789d46406ebe103a70715ccb6e05a4ffc70f31d3597b5b25bdf8baee08f"},
-    {file = "linkml-1.2.10.tar.gz", hash = "sha256:cfefac344adea6d47ed50cdc6787d1f8be8687019fb0df6050b9f1a5e7714904"},
+    {file = "linkml-1.2.13-py3-none-any.whl", hash = "sha256:be8de2848fc038549bad9abaa43a32d9a7550ba245cda2baa14027b6a10c71c2"},
+    {file = "linkml-1.2.13.tar.gz", hash = "sha256:df0e1b5e87ca41ae51812f30906829dc2d2db1d63062ceb0fc7c61e91a53932d"},
 ]
 linkml-dataops = [
     {file = "linkml_dataops-0.1.0-py3-none-any.whl", hash = "sha256:193cf7f659e5f07946d2c2761896910d5f7151d91282543b1363801f68307f4c"},
     {file = "linkml_dataops-0.1.0.tar.gz", hash = "sha256:4550eab65e78b70dc3b9c651724a94ac2b1d1edb2fbe576465f1d6951a54ed04"},
 ]
 linkml-runtime = [
-    {file = "linkml_runtime-1.2.9-py3-none-any.whl", hash = "sha256:99cee1eff5b34cd2d1da0b9bf8cd91b9f0c2dcc0b4a9a7e44c242f4a0043d91a"},
-    {file = "linkml_runtime-1.2.9.tar.gz", hash = "sha256:17fc4ad38e1e421101b2e934eca7f9d8b57f301038efe8e3fa669146b7c9a85f"},
+    {file = "linkml-runtime-1.2.16.tar.gz", hash = "sha256:02fef5408920b4d7cb997cb2090ac635652a2cebbb67097db5d7711863e28904"},
+    {file = "linkml_runtime-1.2.16-py3-none-any.whl", hash = "sha256:b719304eb5dc2aa4e3aacff82852955a0e0cba46580f262d9f0cf1a4ed920219"},
 ]
 linkml-solr = [
     {file = "linkml-solr-0.1.2.tar.gz", hash = "sha256:90ffc06da45581a2f8ea21c7d89dcd8f3e63e70f41c14eaad550e84eaa3ec570"},
@@ -2064,6 +2049,7 @@ numpy = [
     {file = "numpy-1.22.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:8251ed96f38b47b4295b1ae51631de7ffa8260b5b087808ef09a39a9d66c97ab"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:48a3aecd3b997bf452a2dedb11f4e79bc5bfd21a1d4cc760e703c31d57c84b3e"},
     {file = "numpy-1.22.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a3bae1a2ed00e90b3ba5f7bd0a7c7999b55d609e0c54ceb2b076a25e345fa9f4"},
+    {file = "numpy-1.22.3-cp310-cp310-win32.whl", hash = "sha256:f950f8845b480cffe522913d35567e29dd381b0dc7e4ce6a4a9f9156417d2430"},
     {file = "numpy-1.22.3-cp310-cp310-win_amd64.whl", hash = "sha256:08d9b008d0156c70dc392bb3ab3abb6e7a711383c3247b410b39962263576cd4"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_10_14_x86_64.whl", hash = "sha256:201b4d0552831f7250a08d3b38de0d989d6f6e4658b709a02a73c524ccc6ffce"},
     {file = "numpy-1.22.3-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:f8c1f39caad2c896bc0018f699882b345b2a63708008be29b1f355ebf6f933fe"},
@@ -2085,8 +2071,8 @@ nxontology = [
     {file = "nxontology-0.4.1.tar.gz", hash = "sha256:8f1e5d6d7787542e9414be4ae34bb09e369dbaf2d6c646bba2d18b122c083d44"},
 ]
 oaklib = [
-    {file = "oaklib-0.1.16-py3-none-any.whl", hash = "sha256:47fccf283a23d6129025adcdd4ff710cac6a2cd7c7af2892ea1aeaae6dac1544"},
-    {file = "oaklib-0.1.16.tar.gz", hash = "sha256:94e97a4a66f535a4b7758f1c9bff343e1b52bfb146f04c70b2114b4da494fb89"},
+    {file = "oaklib-0.1.19-py3-none-any.whl", hash = "sha256:99c8b1d09b92f5f909d61337b56e69ba37a0e3e68bd9741ac3a378ff5d11c463"},
+    {file = "oaklib-0.1.19.tar.gz", hash = "sha256:7be67e686ba645f7a409e905e349b1fd5afb868f742109d10283b62c74eefa3f"},
 ]
 openpyxl = [
     {file = "openpyxl-3.0.9-py2.py3-none-any.whl", hash = "sha256:8f3b11bd896a95468a4ab162fc4fcd260d46157155d1f8bfaabb99d88cfcf79f"},
@@ -2383,8 +2369,8 @@ scipy = [
     {file = "scipy-1.6.1.tar.gz", hash = "sha256:c4fceb864890b6168e79b0e714c585dbe2fd4222768ee90bc1aa0f8218691b11"},
 ]
 semsql = [
-    {file = "semsql-0.1.3-py3-none-any.whl", hash = "sha256:d94f7d95f9ce545bf99b712ea2952d535ca1d1c43391b0af1fe9bfccd3178d00"},
-    {file = "semsql-0.1.3.tar.gz", hash = "sha256:274129e95d72181600424a84b0bddd9aaf11f8be50096d9da49fb79ddba2aeb8"},
+    {file = "semsql-0.1.6-py3-none-any.whl", hash = "sha256:8834d52a3c6551b3230e1ba31a6b54c51947042680b10c4dfb5458b8d1b1cebc"},
+    {file = "semsql-0.1.6.tar.gz", hash = "sha256:01f8a2625bd2b00c55914c2e8875120225d15e478dc45f4ab1f91af94c9e5163"},
 ]
 shexjsg = [
     {file = "ShExJSG-0.8.2-py2.py3-none-any.whl", hash = "sha256:3b0d8432dd313bee9e1343382c5e02e9908dd941a7dd7342bf8c0200fe523766"},
@@ -2417,10 +2403,6 @@ sphinx = [
 sphinx-click = [
     {file = "sphinx-click-4.0.3.tar.gz", hash = "sha256:a1aacf00cfe11550a2211014617c426a94af8638f1ce735b5d9998cccf1a1edb"},
     {file = "sphinx_click-4.0.3-py3-none-any.whl", hash = "sha256:4c4b43386ff6304e47ae0467da9c980786eb3c1317cd6f488524c18931627c04"},
-]
-sphinx-rtd-theme = [
-    {file = "sphinx_rtd_theme-1.0.0-py2.py3-none-any.whl", hash = "sha256:4d35a56f4508cfee4c4fb604373ede6feae2a306731d533f409ef5c3496fdbd8"},
-    {file = "sphinx_rtd_theme-1.0.0.tar.gz", hash = "sha256:eec6d497e4c2195fa0e8b2016b337532b8a699a68bcb22a512870e16925c6a5c"},
 ]
 sphinxcontrib-applehelp = [
     {file = "sphinxcontrib-applehelp-1.0.2.tar.gz", hash = "sha256:a072735ec80e7675e3f432fcae8610ecf509c5f1869d17e2eecff44389cdbc58"},
