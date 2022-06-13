@@ -8,7 +8,7 @@ include = ["README.md", "src/linkml", "project"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-linkml-runtime = "^1.2.18"
+linkml-runtime = "^1.2.16"
 oaklib = "^0.1.21"
 linkml-solr = "^0.1.2"
 linkml-dataops = "^0.1.0"
