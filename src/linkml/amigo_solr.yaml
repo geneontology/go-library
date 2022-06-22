@@ -425,20 +425,6 @@ slots:
     - Ontology source
     multivalued: false
     comments: []
-  type:
-    description: Type class.
-    range: string
-    aliases:
-    - Type
-    multivalued: false
-    comments: []
-  date:
-    description: Date of assignment.
-    range: string
-    aliases:
-    - Date
-    multivalued: false
-    comments: []
   assigned_by:
     description: Annotations assigned by group.
     range: string
@@ -722,13 +708,6 @@ slots:
     range: string
     aliases:
     - Isoform
-    multivalued: false
-    comments: []
-  evidence_type:
-    description: Evidence type.
-    range: string
-    aliases:
-    - Evidence
     multivalued: false
     comments: []
   evidence_closure_map:
@@ -1267,19 +1246,10 @@ slots:
     aliases: *id067
     multivalued: false
     comments: *id068
-  comment:
-    description: Term comments.
-    range: SearchableString
-    aliases: &id069
-    - Comments
-    multivalued: true
-    comments: &id070 []
   comment_searchable:
     description: Term comments.
     range: SearchableString
-    aliases: *id069
     multivalued: true
-    comments: *id070
   enabled_by_complex:
     description: The CURIE for the ro:enabled_by.rdf:type value of the annoton/MF
       individual

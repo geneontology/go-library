@@ -85,16 +85,7 @@ slots:
     in_subset:
       - not in original specification
 
-  type:
-    description: >-
-      links a GOCAM Entity (an OWL individual) to the specific class it instantiates
-    range: OntologyClass
-    slot_uri: rdf:type
-    exact_mappings:
-      - biolink:type
-    required: true
-
-  category:
+  gocam_category:
     is_a: type
     range: category type
     description: >-
@@ -108,8 +99,8 @@ slots:
       An object that supports a piece of evidence
     slot_uri: lego:evidence
     multivalued: true
-    
-  reference:
+
+  gocam_reference:
     range: Publication
     description: >-
       A publication or other reference that supports a piece of evidence
@@ -123,24 +114,13 @@ slots:
     #range: uriorcurie
     range: string
     
-  contributor:
+  gocam_contributor:
     slot_uri: dce:contributor
     description: >-
       connects an assertion to the individual that made a contribution to it
     multivalued: true
     range: uriorcurie
-    
-  date:
-    slot_uri: dce:date
-    description: >-
-      connects anything to the date
-    range: DateAsString
-    
-  evidence_type:
-    is_a: type
-    description: >-
-      Connectes a piece of evidence to the evidence_type from ECO
-    pattern: '^ECO:\d+$'
+
     
   type_inferences:
     description: >-
@@ -314,12 +294,6 @@ slots:
     slot_uri: owl:versionIRI
     range: uriorcurie
 
-  comment:
-    is_a: model_property
-    slot_uri: rdfs:comment
-    multivalued: true
-    range: string
-
   state:
     is_a: model_property
     description: >-
@@ -418,7 +392,7 @@ classes:
       - id
       - legacy_id
       - title
-      - contributor
+      - gocam_contributor
       - date
       - state
       - version
@@ -763,7 +737,7 @@ classes:
     slots:
       - id
       - name
-      - category
+      - gocam_category
 
   ## -- Evidence --
 
@@ -784,10 +758,10 @@ classes:
     description: >-
       An instance of a piece of Evidence. Evidence attributes such as type, reference, hang off of here
     slots:
-      - contributor
+      - gocam_contributor
       - date
       - evidence_type
-      - reference
+      - gocam_reference
       - with_object
     see_also:
       - https://docs.google.com/presentation/d/1ja0Vkw0AoENJ58emM77dGnqPtY1nfIJMeyVnObBxIxI/edit#slide=id.p9

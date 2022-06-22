@@ -7,7 +7,6 @@ license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
   resultset: https://linkml.io/sparqlfun/resultset
-  linkml: https://w3id.org/linkml/
 
 default_prefix: resultset
 default_range: string
