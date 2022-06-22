@@ -80,14 +80,12 @@ class TestQuery(unittest.TestCase):
 
     def test_sparql_template(self):
         se = self.oi.sparqlfun_engine
-        uri = self.oi.curie_to_uri(DMEL_EGFR_MODEL)
         resultset = se.query(ModelInfo, id=DMEL_EGFR_MODEL)
         print(yaml_dumper.dumps(resultset))
-        assert len(resultset.results) == 1
+        assert len(resultset.results) >= 1
 
     def test_search_via_sparql_template(self):
         se = self.oi.sparqlfun_engine
-        uri = self.oi.curie_to_uri(DMEL_EGFR_MODEL)
         resultset = se.query(ModelQuery, title="signaling")
         print(yaml_dumper.dumps(resultset))
         assert len(resultset.results) > 1
