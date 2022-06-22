@@ -9,15 +9,15 @@ include = ["README.md", "src/linkml", "project"]
 [tool.poetry.dependencies]
 python = "^3.9"
 linkml-runtime = "^1.2.16"
-oaklib = "^0.1.19"
+oaklib = "^0.1.22"
 linkml-solr = "^0.1.2"
 linkml-dataops = "^0.1.0"
 sparqlfun = "^0.2.1"
-linkml = "^1.2.13"
+linkml = "^1.2.14"
 
 [tool.poetry.dev-dependencies]
-linkml = "^1.2.6"
-mkdocs-material = "^8.2.8"
+linkml = "^1.2.14"
+mkdocs-material = "^8.3.4"
 
 [tool.poetry.scripts]
 gocam = "go_library.gocam_cli:main"

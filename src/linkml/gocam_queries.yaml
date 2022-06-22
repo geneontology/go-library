@@ -7,7 +7,6 @@ license: https://creativecommons.org/publicdomain/zero/1.0/
 
 prefixes:
   gocam_queries: https://linkml.io/sparqlfun/gocam_queries
-  linkml: https://w3id.org/linkml/
   RO: http://purl.obolibrary.org/obo/RO_
   BFO: http://purl.obolibrary.org/obo/BFO_
   GO: http://purl.obolibrary.org/obo/GO_

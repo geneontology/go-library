@@ -24,3 +24,5 @@ js/datamodel/%.ts: src/linkml/%.yaml
 
 db/%.db: ../semantic-sql/db/%.db
 	cp $< $@
+
+include linkml.Makefile
