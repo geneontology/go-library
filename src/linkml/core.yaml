@@ -1,0 +1,44 @@
+id: https://geneontology.org/go/core
+name: core_go
+description: Core LinkML classes and slots that are shared between amigo and gocam schemas
+
+default_curi_maps:
+  - obo_context
+  - go_context
+  - idot_context
+  - semweb_context
+
+imports:
+- linkml:types
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  amigo: https://geneontology.org/amigo/schema/
+  pav: http://purl.org/pav/
+  dce: http://purl.org/dc/elements/1.1/
+  lego: http://geneontology.org/lego/
+  linkml: https://w3id.org/linkml/
+  biolink: https://w3id.org/biolink/vocab/
+  gocam: https://w3id.org/gocam/
+  OBAN: http://purl.org/oban/
+  goshapes: http://purl.obolibrary.org/obo/go/shapes/
+  RO: http://purl.obolibrary.org/obo/RO_
+  NCBITaxon: http://purl.obolibrary.org/obo/NCBITaxon_
+  BFO: http://purl.obolibrary.org/obo/BFO_
+  GO: http://purl.obolibrary.org/obo/GO_
+  ECO: http://purl.obolibrary.org/obo/ECO_
+  gomodel: http://model.geneontology.org/
+  oio: http://www.geneontology.org/formats/oboInOwl#
+  orcid: https://orcid.org/
+  UniProtKB: http://identifiers.org/uniprot/
+default_prefix: gocore
+
+slots:
+  id:
+    identifier: true
+    range: uriorcurie
+    description: >-
+      A unique identifier for an Entity
+    comments:
+      - for individuals / test_gocam entities, these will typically be CURIEs of the form model:xxxx
+      - for OntologyClasses, these will be standard OBO CURIEs

@@ -18,6 +18,7 @@ default_curi_maps:
 
 imports:
  - linkml:types
+ - core
 
 prefixes:
   pav: http://purl.org/pav/
@@ -64,14 +65,6 @@ subsets:
       - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7012280/bin/nihms-1067180-f0002.jpg
 
 slots:
-  id:
-    identifier: true
-    range: uriorcurie
-    description: >-
-      A unique identifier for an Entity
-    comments:
-      - for individuals / test_gocam entities, these will typically be CURIEs of the form model:xxxx
-      - for OntologyClasses, these will be standard OBO CURIEs
 
   legacy_id:
     slot_uri: oio:id

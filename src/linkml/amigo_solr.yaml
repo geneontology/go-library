@@ -3,6 +3,7 @@ name: amigo_solr
 description: AmiGO
 imports:
 - linkml:types
+- core
 prefixes:
   linkml: https://w3id.org/linkml/
   amigo: https://geneontology.org/amigo/schema/
@@ -415,14 +416,6 @@ classes:
 slots:
   document_category:
     designates_type: true
-  id:
-    identifier: true
-    description: Term acc/ID.
-    range: string
-    aliases:
-    - Acc
-    multivalued: false
-    comments: []
   source:
     description: 'Term namespace. In GO, this is one of: biological_process, molecular_function,
       cellular_component. In other ontologies it is not guaranteed to be populated.
