@@ -4,7 +4,6 @@ description: Core LinkML classes and slots that are shared between amigo and goc
 
 default_curi_maps:
   - obo_context
-  - go_context
   - idot_context
   - semweb_context
 

@@ -16,7 +16,7 @@ import click
 from go_library.amigo_solr.engine import create_handle
 from go_library.datamodel.amigo_solr_api import AmigoSolrAPI
 from go_library.datamodel.gocam_queries import ModelQuery, ModelInteraction
-from go_library.implementations.gocam_store import GoCamStore
+from go_library.oak_adapters.gocam_store import GoCamStore
 from linkml_runtime.dumpers import yaml_dumper
 from oaklib.implementations.aggregator.aggregator_implementation import AggregatorImplementation
 from oaklib.interfaces import BasicOntologyInterface, OntologyInterface, ValidatorInterface, SubsetterInterface

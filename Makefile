@@ -8,6 +8,8 @@ SHELL := bash
 
 RUN = poetry run
 
+include linkml.Makefile
+
 test:
 	$(RUN) python -m unittest
 
@@ -24,5 +26,3 @@ js/datamodel/%.ts: src/linkml/%.yaml
 
 db/%.db: ../semantic-sql/db/%.db
 	cp $< $@
-
-include linkml.Makefile

@@ -4,12 +4,7 @@ Command Line Interface to AmiGO
 
 """
 import logging
-import os
-import subprocess
-import sys
-from collections import defaultdict
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Dict, List, Sequence, TextIO, Tuple, Any, Type
 
 import click
@@ -41,6 +36,10 @@ isa_partof_closure_option = click.option(
 taxon_option = click.option(
     "-T", "--taxon",
     help="Taxon (direct)."
+)
+reference_option = click.option(
+    "--reference",
+    help="Reference, e.g. PMID"
 )
 
 
@@ -86,6 +85,7 @@ def main(verbose: int, quiet: bool, input: str, add: List):
         settings.impl = AggregatorImplementation(implementations=impls)
     settings.api = create_handle()
 
+
 @main.command()
 @click.argument("terms", nargs=-1)
 @isa_partof_closure_option
@@ -118,18 +118,38 @@ def qgene(terms, output_type, **kwargs):
 
 @main.command()
 @click.argument("terms", nargs=-1)
+@click.option('--include-facets/--no-include-facets')
+@click.option('--facets',
+              help="Comma separated list of facets to include")
 @isa_partof_closure_option
 @taxon_option
+@reference_option
 @output_type_option
-def qassoc(terms, output_type, **kwargs):
+def qassoc(terms, output_type, include_facets, facets, **kwargs):
     api = settings.api
     if output_type and output_type == 'csv':
         w = StreamingCsvWriter()
     else:
         w = StreamingYamlWriter()
 
-    for r in api.query_Annotation(**kwargs):
-        w.emit(r)
+    if include_facets and not facets:
+        facets = 'bioentity,assigned_by'
+    if facets:
+        params = {k: v for k, v in kwargs.items() if v is not None}
+        solr_params = {'facet': 'on',
+                       'facet.mincount': 1,
+                       'facet.field': facets.split(',') }
+        results = api.query_engine.search(Annotation,
+                                          solr_params=solr_params,
+                                          **params)
+        print(results.num_found)
+        for facet, facet_results in results.facet_counts.items():
+            print(f'# Facet: {facet}')
+            for k, v in facet_results.items():
+                print(f' * {k} = {v}')
+    else:
+        for r in api.query_Annotation(**kwargs):
+            w.emit(r)
 
 
 @main.command()

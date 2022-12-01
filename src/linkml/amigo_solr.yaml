@@ -683,6 +683,7 @@ slots:
     - Term
     multivalued: false
     comments: []
+    identifier: true
   annotation_class_label:
     description: Common term name.
     range: SearchableString
@@ -1671,6 +1672,11 @@ slots:
     - Gene/products
     multivalued: true
     comments: []
+  id:
+  comment:
+  type:
+  date:
+  evidence_type:
 types:
   SearchableString:
     typeof: string

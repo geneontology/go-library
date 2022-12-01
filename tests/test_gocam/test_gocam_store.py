@@ -5,7 +5,7 @@ from pathlib import Path
 
 import go_library
 from go_library.datamodel.gocam_queries import ModelInfo, ModelStateEnum, ModelQuery
-from go_library.implementations.gocam_store import GoCamStore
+from go_library.oak_adapters.gocam_store import GoCamStore
 import unittest
 
 from linkml_runtime import SchemaView
@@ -43,7 +43,7 @@ class TestQuery(unittest.TestCase):
         """
         oi = self.oi
         results = list(oi.basic_search("nucleolus"))
-        for c, n in oi.get_labels_for_curies(results):
+        for c, n in oi.labels(results):
             print(f'{c} ! {n}')
 
     def test_instances(self):

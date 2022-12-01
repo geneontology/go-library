@@ -79,7 +79,6 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
                             distinct=True,
                             where=['?s ?p ?o',
                                    _sparql_values('s', [self.curie_to_sparql(s) for s in curies])])
-        print(query.query_str())
         models = {}
         bindings = self._query(query)
         for row in bindings:

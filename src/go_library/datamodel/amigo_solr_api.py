@@ -4,14 +4,16 @@ from dataclasses import dataclass
 from linkml_dataops.query.queryengine import QueryEngine
 from linkml_dataops.query.query_model import FetchQuery, Constraint, MatchConstraint, OrConstraint, AbstractQuery,     FetchById
 from linkml_dataops.query.queryengine import MatchExpression
+from linkml_solr import SolrQueryEngine
 
 from .amigo_solr import *
+
 
 @dataclass
 class AmigoSolrAPI:
 
     # attributes
-    query_engine: QueryEngine = None
+    query_engine: SolrQueryEngine = None
 
     
     # --
