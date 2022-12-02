@@ -20,6 +20,8 @@ linkml = "^1.2.14"
 mkdocs-material = "^8.3.4"
 jupyter = "^1.0.0"
 upsetjs-jupyter-widget = "^1.9.0"
+pyupset = "^0.1.1"
+UpSetPlot = "^0.6.1"
 
 [tool.poetry.scripts]
 gocam = "go_library.gocam_cli:main"

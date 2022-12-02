@@ -342,6 +342,24 @@ traitlets = ">5.3"
 test = ["pytest"]
 
 [[package]]
+name = "contourpy"
+version = "1.0.6"
+description = "Python library for calculating contours of 2D quadrilateral grids"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+numpy = ">=1.16"
+
+[package.extras]
+bokeh = ["bokeh", "selenium"]
+docs = ["docutils (<0.18)", "sphinx (<=5.2.0)", "sphinx-rtd-theme"]
+test = ["pytest", "matplotlib", "pillow", "flake8", "isort"]
+test-minimal = ["pytest"]
+test-no-codebase = ["pytest", "matplotlib", "pillow"]
+
+[[package]]
 name = "curies"
 version = "0.4.0"
 description = "Idiomatic conversion between URIs and compact URIs (CURIEs)."
@@ -358,6 +376,14 @@ bioregistry = ["bioregistry (>=0.5.136)"]
 docs = ["sphinx", "sphinx-rtd-theme", "sphinx-autodoc-typehints", "sphinx-automodapi"]
 pandas = ["pandas"]
 tests = ["pytest", "coverage"]
+
+[[package]]
+name = "cycler"
+version = "0.11.0"
+description = "Composable style cycles"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "debugpy"
@@ -492,6 +518,28 @@ python-versions = ">=3.7"
 [package.extras]
 docs = ["furo (>=2022.6.21)", "sphinx (>=5.1.1)", "sphinx-autodoc-typehints (>=1.19.1)"]
 testing = ["covdefaults (>=2.2)", "coverage (>=6.4.2)", "pytest (>=7.1.2)", "pytest-cov (>=3)", "pytest-timeout (>=2.1)"]
+
+[[package]]
+name = "fonttools"
+version = "4.38.0"
+description = "Tools to manipulate font files"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+all = ["fs (>=2.2.0,<3)", "lxml (>=4.0,<5)", "zopfli (>=0.1.4)", "lz4 (>=1.7.4.2)", "matplotlib", "sympy", "skia-pathops (>=0.5.0)", "uharfbuzz (>=0.23.0)", "brotlicffi (>=0.8.0)", "scipy", "brotli (>=1.0.1)", "munkres", "unicodedata2 (>=14.0.0)", "xattr"]
+graphite = ["lz4 (>=1.7.4.2)"]
+interpolatable = ["scipy", "munkres"]
+lxml = ["lxml (>=4.0,<5)"]
+pathops = ["skia-pathops (>=0.5.0)"]
+plot = ["matplotlib"]
+repacker = ["uharfbuzz (>=0.23.0)"]
+symfont = ["sympy"]
+type1 = ["xattr"]
+ufo = ["fs (>=2.2.0,<3)"]
+unicode = ["unicodedata2 (>=14.0.0)"]
+woff = ["zopfli (>=0.1.4)", "brotlicffi (>=0.8.0)", "brotli (>=1.0.1)"]
 
 [[package]]
 name = "fqdn"
@@ -1020,6 +1068,14 @@ lark = ">=1.1.2,<2.0.0"
 linkml-runtime = ">=1.1.24,<2.0.0"
 
 [[package]]
+name = "kiwisolver"
+version = "1.4.4"
+description = "A fast implementation of the Cassowary constraint solver"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "lark"
 version = "1.1.4"
 description = "a modern parsing library"
@@ -1164,6 +1220,26 @@ description = "Safely add untrusted strings to HTML/XML markup."
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "matplotlib"
+version = "3.6.2"
+description = "Python plotting package"
+category = "dev"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+contourpy = ">=1.0.1"
+cycler = ">=0.10"
+fonttools = ">=4.22.0"
+kiwisolver = ">=1.0.1"
+numpy = ">=1.19"
+packaging = ">=20.0"
+pillow = ">=6.2.0"
+pyparsing = ">=2.2.1"
+python-dateutil = ">=2.7"
+setuptools_scm = ">=7"
 
 [[package]]
 name = "matplotlib-inline"
@@ -1678,6 +1754,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pillow"
+version = "9.3.0"
+description = "Python Imaging Library (Fork)"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
 name = "platformdirs"
 version = "2.5.4"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -2017,6 +2105,19 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pyupset"
+version = "0.1.1.post7"
+description = "Python implementation of the UpSet visualisation suite by Lex et al."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+matplotlib = "*"
+numpy = "*"
+pandas = "*"
+
+[[package]]
 name = "pywin32"
 version = "305"
 description = "Python for Window Extensions"
@@ -2251,6 +2352,23 @@ python-versions = "*"
 nativelib = ["pyobjc-framework-cocoa", "pywin32"]
 objc = ["pyobjc-framework-cocoa"]
 win32 = ["pywin32"]
+
+[[package]]
+name = "setuptools-scm"
+version = "7.0.5"
+description = "the blessed package to manage your versions by scm tags"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+packaging = ">=20.0"
+tomli = ">=1.0.0"
+typing-extensions = "*"
+
+[package.extras]
+test = ["pytest (>=6.2)", "virtualenv (>20)"]
+toml = ["setuptools (>=42)"]
 
 [[package]]
 name = "shexjsg"
@@ -2716,6 +2834,18 @@ docs = ["sphinx (>=1.5)", "recommonmark", "sphinx-rtd-theme", "nbsphinx (>=0.2.1
 test = ["pytest (>=3.6)", "pytest-cov", "nbval"]
 
 [[package]]
+name = "upsetplot"
+version = "0.6.1"
+description = "Draw Lex et al.'s UpSet plots with Pandas and Matplotlib"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+matplotlib = ">=2.0"
+pandas = ">=0.23"
+
+[[package]]
 name = "uri-template"
 version = "1.2.0"
 description = "RFC 6570 URI Template Processor"
@@ -2861,7 +2991,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.12"
-content-hash = "fb52fadbb663f0fa32029aa214290e9b0e8236ff3d9bd051f56458882c21c21f"
+content-hash = "b291c176071d0d6e6114a2061db3d45231e951acad97c5448f53ec144bd8024e"
 
 [metadata.files]
 aiohttp = []
@@ -2892,7 +3022,9 @@ class-resolver = []
 click = []
 colorama = []
 comm = []
+contourpy = []
 curies = []
+cycler = []
 debugpy = []
 decorator = []
 defusedxml = []
@@ -2907,6 +3039,7 @@ executing = []
 fastjsonschema = []
 fastobo = []
 filelock = []
+fonttools = []
 fqdn = []
 frozenlist = []
 fsspec = []
@@ -2943,6 +3076,7 @@ jupyterlab-pygments = []
 jupyterlab-widgets = []
 kgcl-rdflib = []
 kgcl-schema = []
+kiwisolver = []
 lark = []
 linkml = []
 linkml-dataops = []
@@ -2951,6 +3085,7 @@ linkml-solr = []
 markdown = []
 markdown-it-py = []
 markupsafe = []
+matplotlib = []
 matplotlib-inline = []
 mdit-py-plugins = []
 mdurl = []
@@ -2984,6 +3119,7 @@ parse = []
 parso = []
 pexpect = []
 pickleshare = []
+pillow = []
 platformdirs = []
 pluggy = []
 ply = []
@@ -3012,6 +3148,7 @@ pytest-logging = []
 python-dateutil = []
 pytrie = []
 pytz = []
+pyupset = []
 pywin32 = []
 pywinpty = []
 pyyaml = []
@@ -3031,6 +3168,7 @@ rfc3987 = []
 scipy = []
 semsql = []
 send2trash = []
+setuptools-scm = []
 shexjsg = []
 six = []
 sniffio = []
@@ -3063,6 +3201,7 @@ tqdm = []
 traitlets = []
 typing-extensions = []
 upsetjs-jupyter-widget = []
+upsetplot = []
 uri-template = []
 urllib3 = []
 validators = []
