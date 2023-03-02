@@ -1,5 +1,5 @@
 # Auto generated from gocam_queries.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-28T09:11:03
+# Generation date: 2023-02-08T16:26:09
 # Schema: gocam-queries
 #
 # id: https://linkml.io/sparqlfun/gocam_queries
@@ -33,20 +33,21 @@ dataclasses._init_fn = dataclasses_init_fn_with_kwargs
 
 # Namespaces
 BFO = CurieNamespace('BFO', 'http://purl.obolibrary.org/obo/BFO_')
-DOI = CurieNamespace('DOI', 'http://dx.doi.org/')
+DOI = CurieNamespace('DOI', 'http://identifiers.org/doi/')
 ECO = CurieNamespace('ECO', 'http://purl.obolibrary.org/obo/ECO_')
 GO = CurieNamespace('GO', 'http://purl.obolibrary.org/obo/GO_')
 OBAN = CurieNamespace('OBAN', 'http://purl.org/oban/')
-PMID = CurieNamespace('PMID', 'http://www.ncbi.nlm.nih.gov/pubmed/')
+PMID = CurieNamespace('PMID', 'http://identifiers.org/pmid/')
 RO = CurieNamespace('RO', 'http://purl.obolibrary.org/obo/RO_')
 BIOLINK = CurieNamespace('biolink', 'https://w3id.org/biolink/vocab/')
 DCE = CurieNamespace('dce', 'http://purl.org/dc/elements/1.1/')
+DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
 GOCAM = CurieNamespace('gocam', 'https://w3id.org/gocam/')
 GOCAM_QUERIES = CurieNamespace('gocam_queries', 'https://linkml.io/sparqlfun/gocam_queries')
+GOCORE = CurieNamespace('gocore', 'https//geneontology.org/go/core')
 GOMODEL = CurieNamespace('gomodel', 'http://model.geneontology.org/')
 GOSHAPES = CurieNamespace('goshapes', 'http://purl.obolibrary.org/obo/go/shapes/')
 LEGO = CurieNamespace('lego', 'http://geneontology.org/lego/')
-LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
 OIO = CurieNamespace('oio', 'http://www.geneontology.org/formats/oboInOwl#')
 OWL = CurieNamespace('owl', 'http://www.w3.org/2002/07/owl#')
 PAV = CurieNamespace('pav', 'http://purl.org/pav/')
@@ -466,7 +467,12 @@ class ModelQuery(YAMLRoot):
     id: Union[str, ModelQueryId] = None
     results: Optional[Union[Union[str, ModelId], List[Union[str, ModelId]]]] = empty_list()
     state: Optional[str] = None
-    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    contributor: Optional[str] = None
+    created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date_accepted: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_date_accepted: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     title: Optional[Union[str, ShortText]] = None
     search_term: Optional[str] = None
     ontology_class: Optional[Union[str, URIorCURIE]] = None
@@ -489,9 +495,28 @@ class ModelQuery(YAMLRoot):
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
 
-        if not isinstance(self.contributor, list):
-            self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
+        if self.contributor is not None and not isinstance(self.contributor, str):
+            self.contributor = str(self.contributor)
+
+        if not isinstance(self.created, list):
+            self.created = [self.created] if self.created is not None else []
+        self.created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.created]
+
+        if not isinstance(self.date_accepted, list):
+            self.date_accepted = [self.date_accepted] if self.date_accepted is not None else []
+        self.date_accepted = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.date_accepted]
+
+        if not isinstance(self.dct_contributor, list):
+            self.dct_contributor = [self.dct_contributor] if self.dct_contributor is not None else []
+        self.dct_contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_contributor]
+
+        if not isinstance(self.dct_created, list):
+            self.dct_created = [self.dct_created] if self.dct_created is not None else []
+        self.dct_created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_created]
+
+        if not isinstance(self.dct_date_accepted, list):
+            self.dct_date_accepted = [self.dct_date_accepted] if self.dct_date_accepted is not None else []
+        self.dct_date_accepted = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_date_accepted]
 
         if self.title is not None and not isinstance(self.title, ShortText):
             self.title = ShortText(self.title)
@@ -532,7 +557,7 @@ class ModelIdQuery(YAMLRoot):
     id: Union[str, ModelIdQueryId] = None
     title: Optional[Union[str, ShortText]] = None
     state: Optional[str] = None
-    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    contributor: Optional[str] = None
     title_regex: Optional[str] = None
     provided_by: Optional[str] = None
 
@@ -548,9 +573,8 @@ class ModelIdQuery(YAMLRoot):
         if self.state is not None and not isinstance(self.state, str):
             self.state = str(self.state)
 
-        if not isinstance(self.contributor, list):
-            self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
+        if self.contributor is not None and not isinstance(self.contributor, str):
+            self.contributor = str(self.contributor)
 
         if self.title_regex is not None and not isinstance(self.title_regex, str):
             self.title_regex = str(self.title_regex)
@@ -652,7 +676,12 @@ class Model(Entity):
     id: Union[str, ModelId] = None
     legacy_id: Optional[str] = None
     title: Optional[Union[str, ShortText]] = None
-    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    contributor: Optional[str] = None
+    created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    date_accepted: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_date_accepted: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     date: Optional[Union[str, DateAsString]] = None
     state: Optional[str] = None
     version: Optional[Union[str, URIorCURIE]] = None
@@ -678,9 +707,28 @@ class Model(Entity):
         if self.title is not None and not isinstance(self.title, ShortText):
             self.title = ShortText(self.title)
 
-        if not isinstance(self.contributor, list):
-            self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
+        if self.contributor is not None and not isinstance(self.contributor, str):
+            self.contributor = str(self.contributor)
+
+        if not isinstance(self.created, list):
+            self.created = [self.created] if self.created is not None else []
+        self.created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.created]
+
+        if not isinstance(self.date_accepted, list):
+            self.date_accepted = [self.date_accepted] if self.date_accepted is not None else []
+        self.date_accepted = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.date_accepted]
+
+        if not isinstance(self.dct_contributor, list):
+            self.dct_contributor = [self.dct_contributor] if self.dct_contributor is not None else []
+        self.dct_contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_contributor]
+
+        if not isinstance(self.dct_created, list):
+            self.dct_created = [self.dct_created] if self.dct_created is not None else []
+        self.dct_created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_created]
+
+        if not isinstance(self.dct_date_accepted, list):
+            self.dct_date_accepted = [self.dct_date_accepted] if self.dct_date_accepted is not None else []
+        self.dct_date_accepted = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_date_accepted]
 
         if self.date is not None and not isinstance(self.date, DateAsString):
             self.date = DateAsString(self.date)
@@ -1432,8 +1480,12 @@ class Evidence(InformationEntity):
 
     id: Union[str, EvidenceId] = None
     evidence_type: Union[str, OntologyClassId] = None
-    contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    contributor: Optional[str] = None
+    created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     date: Optional[Union[str, DateAsString]] = None
+    dct_contributor: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_created: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
+    dct_date_accepted: Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]] = empty_list()
     reference: Optional[Union[Union[str, PublicationId], List[Union[str, PublicationId]]]] = empty_list()
     with_object: Optional[Union[Union[str, EntityId], List[Union[str, EntityId]]]] = empty_list()
 
@@ -1448,12 +1500,27 @@ class Evidence(InformationEntity):
         if not isinstance(self.evidence_type, OntologyClassId):
             self.evidence_type = OntologyClassId(self.evidence_type)
 
-        if not isinstance(self.contributor, list):
-            self.contributor = [self.contributor] if self.contributor is not None else []
-        self.contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.contributor]
+        if self.contributor is not None and not isinstance(self.contributor, str):
+            self.contributor = str(self.contributor)
+
+        if not isinstance(self.created, list):
+            self.created = [self.created] if self.created is not None else []
+        self.created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.created]
 
         if self.date is not None and not isinstance(self.date, DateAsString):
             self.date = DateAsString(self.date)
+
+        if not isinstance(self.dct_contributor, list):
+            self.dct_contributor = [self.dct_contributor] if self.dct_contributor is not None else []
+        self.dct_contributor = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_contributor]
+
+        if not isinstance(self.dct_created, list):
+            self.dct_created = [self.dct_created] if self.dct_created is not None else []
+        self.dct_created = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_created]
+
+        if not isinstance(self.dct_date_accepted, list):
+            self.dct_date_accepted = [self.dct_date_accepted] if self.dct_date_accepted is not None else []
+        self.dct_date_accepted = [v if isinstance(v, URIorCURIE) else URIorCURIE(v) for v in self.dct_date_accepted]
 
         if not isinstance(self.reference, list):
             self.reference = [self.reference] if self.reference is not None else []
@@ -1653,17 +1720,11 @@ slots.query_template = Slot(uri=RESULTSET.query_template, name="query_template",
 slots.bindings = Slot(uri=RESULTSET.bindings, name="bindings", curie=RESULTSET.curie('bindings'),
                    model_uri=GOCAM_QUERIES.bindings, domain=None, range=Optional[Union[Dict[Union[str, BindingBindingKey], Union[dict, Binding]], List[Union[dict, Binding]]]])
 
-slots.id = Slot(uri=GOCAM.id, name="id", curie=GOCAM.curie('id'),
-                   model_uri=GOCAM_QUERIES.id, domain=None, range=URIRef)
-
 slots.legacy_id = Slot(uri=OIO.id, name="legacy_id", curie=OIO.curie('id'),
                    model_uri=GOCAM_QUERIES.legacy_id, domain=None, range=Optional[str])
 
 slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
                    model_uri=GOCAM_QUERIES.name, domain=None, range=Optional[Union[str, LabelType]])
-
-slots.type = Slot(uri=RDF.type, name="type", curie=RDF.curie('type'),
-                   model_uri=GOCAM_QUERIES.type, domain=None, range=Union[str, OntologyClassId])
 
 slots.category = Slot(uri=GOCAM.category, name="category", curie=GOCAM.curie('category'),
                    model_uri=GOCAM_QUERIES.category, domain=None, range=Union[str, CategoryType])
@@ -1677,15 +1738,23 @@ slots.reference = Slot(uri=DCE.source, name="reference", curie=DCE.curie('source
 slots.provided_by = Slot(uri=PAV.providedBy, name="provided_by", curie=PAV.curie('providedBy'),
                    model_uri=GOCAM_QUERIES.provided_by, domain=None, range=Optional[str])
 
+slots.dct_contributor = Slot(uri=DCTERMS.contributor, name="dct_contributor", curie=DCTERMS.curie('contributor'),
+                   model_uri=GOCAM_QUERIES.dct_contributor, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+
 slots.contributor = Slot(uri=DCE.contributor, name="contributor", curie=DCE.curie('contributor'),
-                   model_uri=GOCAM_QUERIES.contributor, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+                   model_uri=GOCAM_QUERIES.contributor, domain=None, range=Optional[str])
 
-slots.date = Slot(uri=DCE.date, name="date", curie=DCE.curie('date'),
-                   model_uri=GOCAM_QUERIES.date, domain=None, range=Optional[Union[str, DateAsString]])
+slots.created = Slot(uri=DCE.created, name="created", curie=DCE.curie('created'),
+                   model_uri=GOCAM_QUERIES.created, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
 
-slots.evidence_type = Slot(uri=GOCAM.evidence_type, name="evidence_type", curie=GOCAM.curie('evidence_type'),
-                   model_uri=GOCAM_QUERIES.evidence_type, domain=None, range=Union[str, OntologyClassId],
-                   pattern=re.compile(r'^ECO:\d+$'))
+slots.dct_created = Slot(uri=DCTERMS.created, name="dct_created", curie=DCTERMS.curie('created'),
+                   model_uri=GOCAM_QUERIES.dct_created, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+
+slots.date_accepted = Slot(uri=DCE.dateAccepted, name="date_accepted", curie=DCE.curie('dateAccepted'),
+                   model_uri=GOCAM_QUERIES.date_accepted, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
+
+slots.dct_date_accepted = Slot(uri=DCTERMS.dateAccepted, name="dct_date_accepted", curie=DCTERMS.curie('dateAccepted'),
+                   model_uri=GOCAM_QUERIES.dct_date_accepted, domain=None, range=Optional[Union[Union[str, URIorCURIE], List[Union[str, URIorCURIE]]]])
 
 slots.type_inferences = Slot(uri=GOCAM.type_inferences, name="type_inferences", curie=GOCAM.curie('type_inferences'),
                    model_uri=GOCAM_QUERIES.type_inferences, domain=None, range=Optional[Union[Union[str, OntologyClassId], List[Union[str, OntologyClassId]]]])
@@ -1744,9 +1813,6 @@ slots.title = Slot(uri=DCE.title, name="title", curie=DCE.curie('title'),
 slots.version = Slot(uri=OWL.versionIRI, name="version", curie=OWL.curie('versionIRI'),
                    model_uri=GOCAM_QUERIES.version, domain=None, range=Optional[Union[str, URIorCURIE]])
 
-slots.comment = Slot(uri=RDFS.comment, name="comment", curie=RDFS.curie('comment'),
-                   model_uri=GOCAM_QUERIES.comment, domain=None, range=Optional[Union[str, List[str]]])
-
 slots.state = Slot(uri=LEGO.modelstate, name="state", curie=LEGO.curie('modelstate'),
                    model_uri=GOCAM_QUERIES.state, domain=None, range=Optional[str])
 
@@ -1774,7 +1840,23 @@ slots.chemical_entity_set = Slot(uri=GOCAM.chemical_entity_set, name="chemical_e
 slots.ontology_class_set = Slot(uri=GOCAM.ontology_class_set, name="ontology_class_set", curie=GOCAM.curie('ontology_class_set'),
                    model_uri=GOCAM_QUERIES.ontology_class_set, domain=None, range=Optional[Union[Dict[Union[str, OntologyClassId], Union[dict, OntologyClass]], List[Union[dict, OntologyClass]]]])
 
-slots.model_elements_id = Slot(uri=GOCAM.id, name="model elements_id", curie=GOCAM.curie('id'),
+slots.id = Slot(uri=GOCORE.id, name="id", curie=GOCORE.curie('id'),
+                   model_uri=GOCAM_QUERIES.id, domain=None, range=URIRef)
+
+slots.type = Slot(uri=RDF.type, name="type", curie=RDF.curie('type'),
+                   model_uri=GOCAM_QUERIES.type, domain=None, range=Union[str, OntologyClassId])
+
+slots.date = Slot(uri=DCE.date, name="date", curie=DCE.curie('date'),
+                   model_uri=GOCAM_QUERIES.date, domain=None, range=Optional[Union[str, DateAsString]])
+
+slots.evidence_type = Slot(uri=GOCORE.evidence_type, name="evidence_type", curie=GOCORE.curie('evidence_type'),
+                   model_uri=GOCAM_QUERIES.evidence_type, domain=None, range=Union[str, OntologyClassId],
+                   pattern=re.compile(r'^ECO:\d+$'))
+
+slots.comment = Slot(uri=RDFS.comment, name="comment", curie=RDFS.curie('comment'),
+                   model_uri=GOCAM_QUERIES.comment, domain=None, range=Optional[Union[str, List[str]]])
+
+slots.model_elements_id = Slot(uri=GOCORE.id, name="model elements_id", curie=GOCORE.curie('id'),
                    model_uri=GOCAM_QUERIES.model_elements_id, domain=ModelElements, range=Union[str, ModelElementsId])
 
 slots.model_elements_subject = Slot(uri=RDF.subject, name="model elements_subject", curie=RDF.curie('subject'),

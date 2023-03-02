@@ -10,7 +10,7 @@ from oaklib.types import CURIE
 @dataclass
 class TermComparisonEngine:
     """
-    A class to compare two terms and determine if they are the same.
+    An engine for comparing usage of terms in annotations using Solr.
     """
     ontology_adapter: BasicOntologyInterface = None
     amigo: AmigoSolrAPI = None
@@ -20,8 +20,7 @@ class TermComparisonEngine:
         """
         Compare two terms and determine if they are the same.
 
-        :param term1: First term
-        :param term2: Second term
+        :param terms:
         :param taxon: Taxon
         :return: Summary
         """
@@ -33,7 +32,7 @@ class TermComparisonEngine:
                            'rows': 0,
                            }
             results = self.amigo.query_engine.search(Annotation,
-                                                      solr_params=solr_params,
+                                                     solr_params=solr_params,
                                                      isa_partof_closure=term,
                                                      taxon=taxon)
             summary = self.summarize(results)
@@ -51,7 +50,7 @@ class TermComparisonEngine:
 
     def summarize(self, results) -> dict:
         """
-        Summarize the results of a query
+        Summarize facets from an association query.
 
         :param results: Results of a query
         :return: Summarized results

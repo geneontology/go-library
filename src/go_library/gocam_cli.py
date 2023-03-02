@@ -105,6 +105,17 @@ def main(verbose: int, quiet: bool, input: str, limit: int, add: List):
 @output_type_option
 #@output_option
 def qmodel(output_type, **kwargs):
+    """
+    Query models.
+
+    Example:
+
+        gocam qmodel --search-term nucleus
+
+    In a species:
+
+        gocam qmodel --in-taxon NCBITaxon:6239
+    """
     if output_type and output_type == 'csv':
         w = StreamingCsvWriter()
     else:
@@ -135,6 +146,13 @@ def xxmodel_interactions(output_type, **kwargs):
 @output_type_option
 #@output_option
 def model_interactions(output_type, **kwargs):
+    """
+    Query model interactions.
+
+    Example:
+
+        gocam -vv model-interactions --model-id gomodel:59cc772c00000000
+    """
     if output_type and output_type == 'csv':
         w = StreamingCsvWriter()
     else:

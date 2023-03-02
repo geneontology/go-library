@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Dict
 
+from go_library.datamodel import SCHEMA_DIRECTORY
 from go_library.datamodel.gocam_queries import ModelInteraction, ModelQuery
 from linkml_dataops.query.queryengine import QueryEngine
 from linkml_runtime import CurieNamespace, SchemaView
@@ -28,17 +29,14 @@ from sparqlfun.query_engine import SparqlEngine
 @dataclass
 class GoCamStore(UbergraphImplementation, QueryEngine):
     """
-    Implementation for GO-CAM queries
-
+    Implementation for GO-CAM queries.
     """
     gocam_queries_sv: SchemaView = None
     sparqlfun_engine: SparqlEngine = None
 
     def __post_init__(self):
         super().__post_init__()
-        root_path = Path(inspect.getfile(go_library))
-        schema_path = root_path.parent / '../../src/linkml/gocam_queries.yaml'
-        self.gocam_queries_sv = SchemaView(str(schema_path))
+        self.gocam_queries_sv = SchemaView(str(SCHEMA_DIRECTORY / 'gocam_queries.yaml'))
         self.sparqlfun_engine = SparqlEngine(endpoint='go',
                                              schema_view=self.gocam_queries_sv)
 
@@ -75,6 +73,9 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
             yield self.uri_to_curie(row['s']['value'])
 
     def get_models_by_curies(self, curies: List[CURIE]) -> Iterator[Model]:
+        """
+        Given a list of model IDs, yield populated models.
+        """
         query = SparqlQuery(select=['?s ?p ?o'],
                             distinct=True,
                             where=['?s ?p ?o',
@@ -100,6 +101,10 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
 
     def search_models(self,
                       search_term: str = None) -> Iterator[Model]:
+
+        """
+        Yield models matching a text search.
+        """
         preds = [gocam_dm.slots.title.uri]
         where = [f'?s ?p ?v ',
                  f'?v bds:search "{search_term}"',
@@ -125,6 +130,9 @@ class GoCamStore(UbergraphImplementation, QueryEngine):
             yield result.id
 
     def all_model_interactions(self, model_id=None, **kwargs) -> Iterator[ModelInteraction]:
+        """
+        Find all
+        """
         for model_id in self.query_model_ids(id=model_id, **kwargs):
             print(f'MODEL={model_id}')
             for result in self.sparqlfun_engine.query(ModelInteraction, model_id=model_id).results:

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import pkgutil
 
+from go_library.datamodel import MAIN_SCHEMA_PATH
 from go_library.datamodel.gocam import *
 from linkml_runtime import SchemaView
 from linkml_runtime.utils.introspection import package_schemaview
@@ -52,10 +53,10 @@ class TestCreate(unittest.TestCase):
     """A test case for create tests."""
 
     def test_create(self):
-        schema_str = pkgutil.get_data('go_library', '../../src/linkml/gocam.yaml').decode(encoding='utf-8')
+        #schema_str = pkgutil.get_data('go_library', '../../src/linkml/gocam.yaml').decode(encoding='utf-8')
         #print(schema_str)
         #package_schemaview()
-        sv = SchemaView(schema_str)
+        sv = SchemaView(str(MAIN_SCHEMA_PATH))
         #print(sv.all_classes())
         #f = open(cntxt_file)
         #cntxt = json.load(f)

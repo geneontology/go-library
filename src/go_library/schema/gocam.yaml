@@ -37,6 +37,8 @@ prefixes:
   oio: http://www.geneontology.org/formats/oboInOwl#
   orcid: https://orcid.org/
   UniProtKB: http://identifiers.org/uniprot/
+  PMID: http://identifiers.org/pmid/
+  dcterms: http://purl.org/dc/terms/
 
 default_prefix: gocam
 default_range: string
@@ -84,7 +86,7 @@ slots:
     in_subset:
       - not in original specification
 
-  gocam_category:
+  category:
     is_a: type
     range: category type
     description: >-
@@ -99,7 +101,7 @@ slots:
     slot_uri: lego:evidence
     multivalued: true
 
-  gocam_reference:
+  reference:
     range: Publication
     description: >-
       A publication or other reference that supports a piece of evidence
@@ -113,13 +115,35 @@ slots:
     #range: uriorcurie
     range: string
     
-  gocam_contributor:
-    slot_uri: dce:contributor
+  dct_contributor:
+    slot_uri: dcterms:contributor
     description: >-
       connects an assertion to the individual that made a contribution to it
     multivalued: true
     range: uriorcurie
 
+  contributor:
+    slot_uri: dce:contributor
+
+  created:
+    slot_uri: dce:created
+    multivalued: true
+    range: uriorcurie
+
+  dct_created:
+    slot_uri: dcterms:created
+    multivalued: true
+    range: uriorcurie
+
+  date_accepted:
+    slot_uri: dce:dateAccepted
+    multivalued: true
+    range: uriorcurie
+
+  dct_date_accepted:
+    slot_uri: dcterms:dateAccepted
+    multivalued: true
+    range: uriorcurie
     
   type_inferences:
     description: >-
@@ -391,7 +415,12 @@ classes:
       - id
       - legacy_id
       - title
-      - gocam_contributor
+      - contributor
+      - created
+      - date_accepted
+      - dct_contributor
+      - dct_created
+      - dct_date_accepted
       - date
       - state
       - version
@@ -736,7 +765,7 @@ classes:
     slots:
       - id
       - name
-      - gocam_category
+      - category
 
   ## -- Evidence --
 
@@ -757,10 +786,14 @@ classes:
     description: >-
       An instance of a piece of Evidence. Evidence attributes such as type, reference, hang off of here
     slots:
-      - gocam_contributor
+      - contributor
+      - created
       - date
+      - dct_contributor
+      - dct_created
+      - dct_date_accepted
       - evidence_type
-      - gocam_reference
+      - reference
       - with_object
     see_also:
       - https://docs.google.com/presentation/d/1ja0Vkw0AoENJ58emM77dGnqPtY1nfIJMeyVnObBxIxI/edit#slide=id.p9

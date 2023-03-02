@@ -153,6 +153,11 @@ classes:
       - results
       - state
       - contributor
+      - created
+      - date_accepted
+      - dct_contributor
+      - dct_created
+      - dct_date_accepted
       - title
       - search_term
       - ontology_class
